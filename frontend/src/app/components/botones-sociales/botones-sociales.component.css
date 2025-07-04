@@ -1,0 +1,90 @@
+/* Animación para WhatsApp */
+@keyframes balanceo {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+}
+
+/* === BOTONES FLOTANTES LATERALES === */
+.social-button {
+  position: fixed;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.8rem;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  z-index: 1000;
+  text-decoration: none;
+}
+
+/* --- Facebook --- */
+.facebook-button {
+  bottom: 160px;
+  background-color: #1877F2;
+}
+
+/* --- Instagram --- */
+.instagram-button {
+  bottom: 90px;
+  background: radial-gradient(circle at 30% 30%, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+}
+
+/* --- WhatsApp --- */
+.whatsapp-button {
+  bottom: 20px;
+  background-color: #25D366;
+  animation: balanceo 2s infinite ease-in-out;
+}
+
+/* Notificación en WhatsApp */
+.whatsapp-button .notification {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #ff3b30;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover general */
+.social-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Mensaje de ayuda flotante */
+.help-message {
+  position: fixed;
+  bottom: 25px;
+  right: 90px;
+  background-color: #25D366;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 1000;
+}
+
+.help-message.show {
+  opacity: 1;
+  transform: translateX(0);
+}

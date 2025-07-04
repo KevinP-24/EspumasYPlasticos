@@ -1,0 +1,79 @@
+/* Sección general */
+.seccion-beneficios {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 20px;
+  text-align: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Cada bloque de beneficio */
+.beneficio {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  max-width: 30%;
+  flex: 1;
+  min-width: 260px;
+  position: relative;
+}
+
+/* Ícono FontAwesome */
+.icono-beneficio {
+  color: #15CD82;
+  flex-shrink: 0;
+}
+
+/* Texto */
+.texto-beneficio h3 {
+  font-family: 'Avenir Next LT Pro', sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2D2D2D;
+  margin: 0;
+}
+
+.texto-beneficio p {
+  font-size: 1rem;
+  color: #666;
+  margin: 5px 0 0;
+}
+
+/* Separador entre beneficios */
+.beneficio:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 50px;
+  background-color: #ccc;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .seccion-beneficios {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .beneficio {
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .beneficio:not(:last-child)::after {
+    display: none;
+  }
+
+  .icono-beneficio {
+    margin-bottom: 10px;
+  }
+}

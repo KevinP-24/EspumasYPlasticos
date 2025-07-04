@@ -1,0 +1,116 @@
+/* Contenedor principal: NAVBAR */
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #e6e6e6;
+  padding: 10px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-family: 'Avenir Next LT Pro', sans-serif;
+}
+
+/* Contenido centrado (logo + enlaces) */
+.navbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 20px;
+}
+
+/* Grupos de enlaces */
+.nav-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: transform 0.4s ease;
+}
+
+/* Desplazamiento lateral sincronizado */
+.nav-group.izquierda.shift {
+  transform: translateX(-80px);
+}
+.nav-group.derecha.shift {
+  transform: translateX(80px);
+}
+
+/* LOGO DUAL CENTRAL */
+.logo-dual {
+  position: relative;
+  width: 60px; /* ancho inicial = logo mini */
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.4s ease;
+  overflow: visible;
+}
+
+/* cuando se activa desde Angular */
+.logo-dual.expandido {
+  width: 220px; /* expansión real */
+}
+
+/* imágenes centradas */
+.logo-dual img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* mini visible al inicio */
+.logo-mini {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* grande oculta por defecto */
+.logo-grande {
+  opacity: 0;
+  z-index: 2;
+}
+
+/* mostrar grande al expandir */
+.logo-dual.expandido .logo-mini {
+  opacity: 0;
+}
+.logo-dual.expandido .logo-grande {
+  opacity: 1;
+}
+
+/* Login (a la derecha) */
+.login-wrapper {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.login-icon {
+  font-size: 1.2rem;
+  color: #2D2D2D;
+  transition: color 0.3s ease;
+  margin-left: 20px;
+  cursor: pointer;
+}
+.login-icon:hover {
+  color: #15CD82;
+}
+
+/* Enlaces generales */
+a {
+  text-decoration: none;
+  color: #2D2D2D;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+a:hover,
+a.active {
+  color: #15CD82;
+}

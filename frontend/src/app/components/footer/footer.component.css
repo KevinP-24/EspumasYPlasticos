@@ -1,0 +1,98 @@
+/* === PIE DE PÁGINA === */
+footer {
+  background-color: #2D2D2D; /* RAL 9004 */
+  color: white;
+  padding: 40px 20px;
+  font-family: 'Avenir Next LT Pro', sans-serif;
+}
+
+/* Contenedor interior con máximo ancho */
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+/* Logo */
+.footer-logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-logo img {
+  height: 80px;
+  display: block;
+}
+
+/* Secciones de información */
+.footer-info {
+  flex: 1;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.footer-info h3 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #15CD82; /* Verde institucional */
+}
+
+.footer-info p {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.footer-info a {
+  color: #15CD82;
+  text-decoration: none;
+  word-break: break-word;
+}
+
+.footer-info a:hover {
+  text-decoration: underline;
+}
+
+/* Separador */
+footer hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 30px auto 10px;
+  width: 90%;
+}
+
+/* Línea inferior */
+.footer-bottom {
+  text-align: center;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  padding-top: 10px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-info {
+    align-items: center;
+    text-align: center;
+    margin-left: 0;
+  }
+
+  .footer-logo {
+    margin-bottom: 20px;
+  }
+}

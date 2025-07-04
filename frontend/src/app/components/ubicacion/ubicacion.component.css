@@ -1,0 +1,50 @@
+/* ----- Estilos para la Sección de Ubicación ----- */
+.seccion-ubicacion {
+  width: 100vw;
+  margin: 0;
+  padding: 20px 0;
+  text-align: center;
+  font-family: 'Avenir Next LT Pro', sans-serif;
+}
+
+.seccion-ubicacion h2 {
+  font-size: 2rem;
+  color: #2D2D2D; /* Texto institucional */
+  margin-bottom: 20px;
+}
+
+/* Contenedor del mapa */
+.mapa-container {
+  width: 100vw;
+  height: 300px;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.mapa-container iframe {
+  width: 100vw;
+  height: 100%;
+  border: 0;
+}
+
+/* Botón de llamado a la acción */
+.mapa-boton {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.mapa-boton a {
+  background-color: #009AA2; /* PANTONE® 320 XGC */
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.mapa-boton a:hover {
+  background-color: #007C85;
+}

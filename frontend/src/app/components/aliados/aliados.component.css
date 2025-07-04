@@ -1,0 +1,80 @@
+/* ----- Estilos para la Sección de Aliados ----- */
+.seccion-aliados {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px 10%;
+  background-color: #F8F8F8;
+}
+
+/* Contenedor de los Aliados */
+.contenido-aliados {
+  max-width: 50%;
+}
+
+/* Títulos */
+.titulo-secundario {
+  font-size: 14px;
+  font-weight: bold;
+  color: #A0A0A0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.titulo-principal {
+  font-size: 36px;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 15px;
+}
+
+.descripcion {
+  font-size: 16px;
+  color: #777;
+}
+
+/* ----- Contenedor de los Logos ----- */
+.logos-aliados {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  max-width: 50%;
+}
+
+/* ----- Estilos de los Logos ----- */
+.logo-aliado {
+  width: 150px;
+  height: auto;
+  max-height: 80px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+/* Hover: vuelve a color */
+.logo-aliado:hover {
+  filter: grayscale(0%);
+  transform: scale(1.1);
+}
+
+/* ----- Responsive ----- */
+@media screen and (max-width: 768px) {
+  .seccion-aliados {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 5%;
+  }
+
+  .contenido-aliados,
+  .logos-aliados {
+    max-width: 100%;
+  }
+
+  .logo-aliado {
+    width: 120px;
+    max-height: 70px;
+  }
+}

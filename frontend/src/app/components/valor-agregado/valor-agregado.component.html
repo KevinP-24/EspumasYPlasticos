@@ -1,0 +1,14 @@
+<!-- Sección Destacada - Beneficios de Compra -->
+<section class="seccion-beneficios">
+  <div class="beneficio" *ngFor="let item of beneficios">
+    <!-- Ícono dinámico desde FontAwesome -->
+    <fa-icon [icon]="item.icono" size="2x" class="icono-beneficio"></fa-icon>
+
+    <!-- Contenido del beneficio -->
+    <div class="texto-beneficio">
+      <h3>{{ item.titulo }}</h3>
+      <p>{{ item.descripcion }}</p>
+    </div>
+  </div>
+</section>
+
