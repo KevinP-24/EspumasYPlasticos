@@ -15,6 +15,7 @@ export class NavbarComponent {
   faKey = faKey;
   logoHover = false;
   menuAbierto = false;
+
   toggleMenu(): void {
     this.menuAbierto = !this.menuAbierto;
   }

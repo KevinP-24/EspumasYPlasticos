@@ -1,0 +1,66 @@
+.section-mvv {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  padding: 60px 20px;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 50px auto;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.mvv-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+  width: 100%;
+}
+
+.mvv-block {
+  flex: 1 1 300px;
+  background-color: #E1E2E3;
+  padding: 30px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.mvv-block h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #056D6D;
+  font-family: 'Avenir Next LT Pro', sans-serif;
+}
+
+.mvv-block p {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+  font-family: 'Avenir Next LT Pro', sans-serif;
+}
+
+.mvv-block ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: 'Avenir Next LT Pro', sans-serif;
+}
+
+.mvv-block li {
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #2D2D2D;
+}
+
+@media screen and (max-width: 768px) {
+  .mvv-content {
+    flex-direction: column;
+  }
+
+  .mvv-block {
+    flex: 1 1 100%;
+  }
+}

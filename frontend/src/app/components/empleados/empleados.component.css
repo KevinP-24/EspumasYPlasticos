@@ -1,0 +1,54 @@
+.nuestro-equipo {
+  padding: 60px 30px;
+  background-color: #E1E2E3;
+  font-family: 'Avenir Next Pro', sans-serif;
+}
+
+.equipo-contenido {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.equipo-carousel {
+  flex: 1 1 45%;
+  max-width: 500px;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 20px;
+  position: relative;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.carousel {
+  display: flex;
+  height: 100%;
+  transition: transform 1s ease-in-out;
+}
+
+.carousel img {
+  width: 500px;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border-radius: 20px;
+}
+
+.equipo-texto {
+  flex: 1 1 45%;
+  max-width: 500px;
+  color: #2D2D2D;
+}
+
+.equipo-texto h2 {
+  font-size: 2rem;
+  color: #056D6D;
+  margin-bottom: 15px;
+}
+
+.equipo-texto p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}

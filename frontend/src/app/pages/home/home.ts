@@ -6,6 +6,7 @@ import { ValorAgregadoComponent } from "../../components/valor-agregado/valor-ag
 import { UbicacionComponent } from "../../components/ubicacion/ubicacion.component";
 import { RedesSocialesComponent } from "../../components/botones-sociales/botones-sociales.component";
 import { HeroComponent } from "../../components/header-index/header-index.component";
+import { HeaderEnlacesComponent } from "../../components/header-enlaces/header-enlaces.component";
 
 @Component({
   selector: 'app-home',
@@ -17,6 +18,7 @@ import { HeroComponent } from "../../components/header-index/header-index.compon
     ValorAgregadoComponent,
     UbicacionComponent,
     RedesSocialesComponent,
+    HeaderEnlacesComponent,
     HeroComponent
 ],
   templateUrl: './home.html',

@@ -1,0 +1,76 @@
+.section {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: stretch;
+}
+.box {
+  position: relative;
+  flex: 1 1 0%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: flex 0.5s ease;
+  min-width: 0;
+}
+.box:hover {
+  flex: 3 1 0%;
+}
+.box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+
+.box:hover img {
+  opacity: 1;
+  filter: contrast(120%);
+  cursor: crosshair;
+}
+
+/* Overlay */
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  text-align: center;
+  color: white;
+  font-family: 'Avenir Next LT Pro', sans-serif;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.content h3 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 2px solid white;
+  text-decoration: none;
+  font-size: 1rem;
+  color: white;
+  font-weight: bold;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: white;
+  color: black;
+}
+
+.box::after { 
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.35);
+  z-index: 1;
+  pointer-events: none;
+}

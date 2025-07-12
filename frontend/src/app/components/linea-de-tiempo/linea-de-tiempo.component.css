@@ -1,0 +1,148 @@
+/* === CONTENEDOR GENERAL DE LA SECCIÓN === */
+.timeline-visual {
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* === ENCABEZADO === */
+.timeline-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.timeline-header h2 {
+  font-size: 2.5rem;
+  color: #2D2D2D;
+  font-family: 'Avenir Next LT Pro', sans-serif;
+}
+
+.timeline-header p {
+  font-size: 1.1rem;
+  color: #555;
+  font-family: 'Avenir Next LT Pro', sans-serif;
+}
+
+/* === CONTENEDOR DE EVENTOS === */
+.timeline-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  gap: 10px;
+  padding: 60px 0;
+}
+
+/* === LÍNEA CENTRAL === */
+.timeline-container::before {
+  content: "";
+  position: absolute;
+  top: 100px; /* alineado con centro del círculo */
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: #009AA2;
+  z-index: 1;
+}
+
+/* === EVENTO INDIVIDUAL === */
+.timeline-event {
+  position: relative;
+  width: 220px;
+  text-align: center;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ÍCONO ENCIMA DEL CÍRCULO */
+.timeline-event .icon {
+  font-size: 2rem;
+  color: #15CD82;
+  margin-bottom: 6px;
+  position: relative;
+  z-index: 4;
+  margin-top: -40px;
+}
+
+/* CÍRCULO DE AÑO CENTRADO EN LA LÍNEA */
+.year-circle {
+  width: 60px;
+  height: 60px;
+  background-color: #FFF;
+  border: 4px solid #009AA2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #009AA2;
+  font-size: 1rem;
+  font-family: 'Avenir Next LT Pro', sans-serif;
+  z-index: 3;
+  position: relative;
+  top: 0; /* centrado exacto con la línea */
+  box-shadow: 0 0 0 6px #fff;
+}
+
+/* TEXTO DEL EVENTO */
+.event-text {
+  margin-top: 80px;
+  font-size: 0.95rem;
+  color: #333;
+  font-family: 'Avenir Next LT Pro', sans-serif;
+  line-height: 1.4;
+  max-width: 220px;
+  z-index: 2;
+}
+
+/* === EFECTO HOVER EN EL EVENTO COMPLETO === */
+.timeline-event:hover .year-circle,
+.timeline-event:hover .icon {
+  transform: scale(1.15);
+  color: #056D6D; /* tono más profundo para el ícono */
+  border-color: #056D6D; /* cambia el borde del círculo */
+}
+
+/* Transiciones suaves */
+.timeline-event .year-circle,
+.timeline-event .icon {
+  transition: all 0.3s ease;
+}
+
+
+/* === RESPONSIVE (MÓVIL) === */
+@media screen and (max-width: 768px) {
+  .timeline-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+  }
+
+  .timeline-event {
+    width: 100%;
+  }
+
+  .timeline-container::before {
+    top: initial;
+    bottom: 0;
+    height: 3px;
+  }
+
+  .year-circle {
+    top: 0;
+    margin: 20px 0;
+  }
+
+  .event-text {
+    margin-top: 40px;
+  }
+
+  .timeline-event .icon {
+    margin-top: 0;
+  }
+}

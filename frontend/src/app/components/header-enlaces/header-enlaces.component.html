@@ -1,0 +1,9 @@
+<section class="section">
+  <div class="box" *ngFor="let item of items">
+    <img [src]="item.img" [alt]="item.title" />
+    <div class="content">
+      <h3>{{ item.title }}</h3>
+      <a class="btn" [href]="item.link">Ver más</a>
+    </div>
+  </div>
+</section>

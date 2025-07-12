@@ -1,0 +1,18 @@
+<section class="nuestro-equipo">
+  <div class="equipo-contenido">
+
+    <!-- Carrusel de una imagen a la vez -->
+    <div class="equipo-carousel">
+      <div class="carousel" [style.transform]="transformStyle">
+        <img *ngFor="let img of imagenes; let i = index" [src]="img" alt="Empleado {{ i + 1 }}" />
+      </div>
+    </div>
+
+    <!-- Texto a la derecha -->
+    <div class="equipo-texto">
+      <h2>{{ titulo }}</h2>
+      <p>{{ descripcion }}</p>
+    </div>
+
+  </div>
+</section>
