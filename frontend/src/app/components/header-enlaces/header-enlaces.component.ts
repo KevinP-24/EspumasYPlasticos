@@ -13,7 +13,7 @@ export class HeaderEnlacesComponent {
  items = [
     {
       title: 'Colchones',
-      img: 'assets/img/colchon-orthopack-euro-base-cama-almohada_1Mzwu.jpg',
+      img: 'assets/img/premium_photo-1661595077028-9ff236368cb5.jpeg',
       link: '/colchones'
     },
     {
@@ -23,7 +23,7 @@ export class HeaderEnlacesComponent {
     },
     {
       title: 'Creación para el descanso',
-      img: 'assets/img/colchon-orthopack-euro-base-cama-almohada_1Mzwu.jpg',
+      img: 'assets/img/photo-1606501126768-b78d4569d3f9.jpeg',
       link: '/descanso'
     }
   ];

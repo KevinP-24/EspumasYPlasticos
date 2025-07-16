@@ -1,0 +1,210 @@
+.seccion-chat {
+  background-color: var(--color-complementario-2);
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.chat-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 1000px;
+  width: 100%;
+  position: relative;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* === Chat estilo WhatsApp simulado === */
+.chat-box {
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%;
+  max-width: 380px; /* ← menos que 400px para equilibrio visual */
+  transition: transform 0.3s ease;
+}
+.chat-box:hover {
+  transform: translateY(-4px);
+}
+.chat-header {
+  background-color: #25d366;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.chat-header .icon-wsp {
+  background-color: #ffffffcc; /* blanco semitransparente */
+  color: #25d366;
+  border-radius: 50%;
+  padding: 8px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+.chat-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+.chat-info h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: #fff; /* mejor contraste */
+}
+
+.chat-info span {
+  font-size: 0.75rem;
+  color: #eaffea;
+  opacity: 0.95;
+}
+.chat-mensajes {
+  background-color: #e5ddd5;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.sistema {
+  background-color: #fff;
+  color: #666;
+  font-size: 0.7rem;
+  padding: 6px 12px;
+  border-radius: 10px;
+  text-align: center;
+  width: fit-content;
+  margin: 0 auto;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.mensaje.empresa {
+  background-color: #dcf8c6;
+  color: #111;
+  align-self: flex-start;
+  line-height: 1.4;
+  position: relative;
+  padding: 12px 16px;
+  border-radius: 20px;
+  border-bottom-left-radius: 6px;
+  font-size: 0.92rem;
+  max-width: 85%;
+}
+
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.chat-footer {
+  padding: 16px;
+  background-color: #f9f9f9;
+  display: flex;
+  justify-content: center; /* ← Antes estaba en flex-end */
+  border-top: 1px solid #ddd;
+}
+
+
+.btn-chat {
+  background-color: #25d366;
+  color: white;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.btn-chat:hover {
+  background-color: #1ebd59;
+  transform: translateY(-2px);
+}
+
+
+
+
+
+
+/* === Redes sociales modernas - ESTILO BOTONES OVALADOS === */
+.redes-sociales {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.botones-redes {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.btn-red {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background-color: #2D2D2D;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease;
+  width: 260px; /* ← ancho actualizado */
+}
+
+.btn-red fa-icon {
+  font-size: 20px;
+}
+
+/* Hover con colores específicos */
+.btn-red.facebook:hover {
+  background-color: #1877f2;
+}
+
+.btn-red.instagram:hover {
+  background: radial-gradient(circle at 30% 30%, #feda75, #d62976, #962fbf);
+}
+
+.btn-red.tiktok:hover {
+  background: linear-gradient(45deg, #25f4ee, #fe2c55);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .chat-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .botones-redes {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+  }
+
+  .chat-box {
+    max-width: 100%;
+  }
+}

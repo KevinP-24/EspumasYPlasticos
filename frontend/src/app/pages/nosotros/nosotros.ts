@@ -6,10 +6,11 @@ import { NosotrosComponent } from "../../components/nosotros/nosotros.component"
 import { MisionVisionComponent } from "../../components/mision-vision/mision-vision.component";
 import { LineaDeTiempoComponent } from "../../components/linea-de-tiempo/linea-de-tiempo.component";
 import { EmpleadosComponent } from "../../components/empleados/empleados.component";
+import { RedesSocialesComponent } from "../../components/botones-sociales/botones-sociales.component";
 
 @Component({
   selector: 'app-nosotros',
-  imports: [NavbarComponent, FooterComponent, AliadosComponent, NosotrosComponent, MisionVisionComponent, LineaDeTiempoComponent, EmpleadosComponent],
+  imports: [NavbarComponent, FooterComponent, AliadosComponent, NosotrosComponent, MisionVisionComponent, LineaDeTiempoComponent, EmpleadosComponent, RedesSocialesComponent],
   templateUrl: './nosotros.html',
   styleUrl: './nosotros.css'
 })

@@ -26,6 +26,6 @@ export class EmpleadosComponent implements OnInit {
     setInterval(() => {
       this.currentIndex = (this.currentIndex + 1) % this.imagenes.length;
       this.transformStyle = `translateX(-${this.currentIndex * 500}px)`; // 500px = ancho de imagen
-    }, 5000); // cada 5 segundos
+    }, 1500); // cada 5 segundos
   }
 }
