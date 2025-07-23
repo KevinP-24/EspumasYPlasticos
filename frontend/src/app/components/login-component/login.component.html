@@ -1,0 +1,42 @@
+<!-- login.component.html -->
+<div class="login-wrapper">
+  <div class="login-container">
+    <h2>Iniciar Sesión</h2>
+
+    <form (ngSubmit)="login()" #loginForm="ngForm">
+      <!-- Correo -->
+      <label for="correo">Correo electrónico</label>
+      <input
+        type="email"
+        id="correo"
+        name="correo"
+        [(ngModel)]="dto.correo"
+        required
+        #correoRef="ngModel"
+      />
+      <div class="error" *ngIf="correoRef.invalid && correoRef.touched">
+        El correo es obligatorio
+      </div>
+
+      <!-- Contraseña -->
+      <label for="password">Contraseña</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="dto.password"
+        required
+        #passwordRef="ngModel"
+      />
+      <div class="error" *ngIf="passwordRef.invalid && passwordRef.touched">
+        La contraseña es obligatoria
+      </div>
+
+      <!-- Error general -->
+      <div class="error" *ngIf="error">{{ error }}</div>
+
+      <!-- Botón -->
+      <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
+    </form>
+  </div>
+</div>

@@ -1,66 +1,78 @@
 .section-mvv {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
   padding: 60px 20px;
-  width: 100%;
-  box-sizing: border-box;
-  max-width: 1200px;
-  margin: 50px auto;
-  flex-wrap: wrap;
-  gap: 30px;
+  background-color: #f9f9f9;
+  text-align: center;
 }
 
 .mvv-content {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  justify-content: space-between;
   gap: 30px;
-  width: 100%;
 }
 
-.mvv-block {
-  flex: 1 1 300px;
-  background-color: #E1E2E3;
-  padding: 30px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  border-radius: 10px;
-  box-sizing: border-box;
+.mvv-card {
+  width: 260px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  padding: 25px 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  max-height: 160px; /* altura cerrada más compacta */
 }
 
-.mvv-block h3 {
-  font-size: 1.5rem;
-  margin-bottom: 15px;
-  color: #056D6D;
-  font-family: 'Avenir Next LT Pro', sans-serif;
+.mvv-card.active {
+  max-height: 500px;
+  transform: scale(1.05);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+  z-index: 10;
 }
 
-.mvv-block p {
-  font-size: 1rem;
-  color: #333;
-  line-height: 1.6;
-  font-family: 'Avenir Next LT Pro', sans-serif;
-}
-
-.mvv-block ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  font-family: 'Avenir Next LT Pro', sans-serif;
-}
-
-.mvv-block li {
+.mvv-icon {
+  font-size: 2.3rem;
+  color: #009AA2;
   margin-bottom: 10px;
-  font-size: 1rem;
-  color: #2D2D2D;
 }
 
-@media screen and (max-width: 768px) {
-  .mvv-content {
-    flex-direction: column;
-  }
+.mvv-card h3 {
+  font-family: 'Fashion Fetish', sans-serif;
+  font-size: 1.2rem;
+  color: #444444;
+  margin-bottom: 5px;
+}
 
-  .mvv-block {
-    flex: 1 1 100%;
-  }
+.mvv-text {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-family: 'Avenir Next Pro', sans-serif;
+  font-size: 0.95rem;
+  color: #333;
+  text-align: center;
+  line-height: 1.4;
+  margin-top: 15px;
+  pointer-events: none;
+}
+
+.mvv-card.active .mvv-text {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mvv-text p,
+.mvv-text ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.mvv-text ul li {
+  margin: 5px 0;
 }

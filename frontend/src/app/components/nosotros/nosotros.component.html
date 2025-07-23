@@ -1,9 +1,18 @@
 <section class="section-header">
   <div class="container">
     <h2 class="section-title">Quiénes somos</h2>
-    <p class="section-subtitle">Transformamos insumos en productos para el descanso.</p>
-    <div class="section-svg">
-      <img src="assets/img/QuienesSomos.svg" alt="Quiénes somos">
+    <p class="section-subtitle">
+      En Espumas y Plásticos convertimos insumos en soluciones confortables para el descanso y el bienestar.
+    </p>
+    <div class="section-carousel">
+      <div class="carousel-fade">
+        <img
+          *ngFor="let imagen of imagenesCarrusel; let i = index"
+          [src]="imagen.url"
+          [alt]="imagen.alt || 'Imagen carrusel'"
+          [class.active]="i === currentSlide"
+        />
+      </div>
     </div>
   </div>
 </section>

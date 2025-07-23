@@ -1,26 +1,16 @@
 <section class="section-mvv">
   <div class="mvv-content">
-    <div class="mvv-block">
-      <h3>Misión</h3>
-      <p>
-        Transformar materias primas en soluciones innovadoras de descanso, ofreciendo productos de espuma de alta calidad para hogares, comercios e industrias en todo el país.
-      </p>
-    </div>
-    <div class="mvv-block">
-      <h3>Visión</h3>
-      <p>
-        Ser reconocidos como líderes en el sector de espumas y plásticos, destacándonos por nuestra excelencia, compromiso ambiental y mejora continua hacia el bienestar de nuestros clientes.
-      </p>
-    </div>
-    <div class="mvv-block">
-      <h3>Valores</h3>
-      <ul>
-        <li>✔ Calidad y compromiso</li>
-        <li>✔ Honestidad</li>
-        <li>✔ Innovación</li>
-        <li>✔ Responsabilidad ambiental</li>
-        <li>✔ Servicio al cliente</li>
-      </ul>
+    <div
+      class="mvv-card"
+      *ngFor="let bloque of bloques; let i = index"
+      [class.active]="activeIndex === i"
+      (mouseenter)="setActive(i)"
+      (mouseleave)="clearActive()"
+      (click)="toggleActive(i)"
+    >
+      <fa-icon [icon]="['fas', bloque.icono]" class="mvv-icon"></fa-icon>
+      <h3>{{ bloque.titulo }}</h3>
+      <div class="mvv-text" [innerHTML]="bloque.descripcion"></div>
     </div>
   </div>
 </section>

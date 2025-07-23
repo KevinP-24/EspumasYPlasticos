@@ -20,21 +20,11 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/assets",
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+              "src/favicon.ico"
             ],
             "styles": [
-              "src/app/themes/colors.css",
-              "src/app/themes/fonts.css",
               "src/styles.css"
-            ],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            ]
           },
           "configurations": {
             "production": {
@@ -67,7 +57,8 @@
               "buildTarget": "frontend:build:production"
             },
             "development": {
-              "buildTarget": "frontend:build:development"
+              "buildTarget": "frontend:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
@@ -98,6 +89,6 @@
     }
   },
   "cli": {
-    "analytics": false
+    "analytics": "4b4772be-4f7a-41c2-b0db-69533e3d14a6"
   }
 }

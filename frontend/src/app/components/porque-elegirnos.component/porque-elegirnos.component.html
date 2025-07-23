@@ -1,0 +1,12 @@
+<section class="por-que-elegirnos">
+  <div class="contenedor-motivos">
+    <div 
+      *ngFor="let motivo of motivos; let i = index" 
+      class="motivo" 
+      [class.motivo-centro]="i === 1">
+      <fa-icon [icon]="motivo.icono" class="icono"></fa-icon>
+      <h3>{{ motivo.titulo }}</h3>
+      <p>{{ motivo.texto }}</p>
+    </div>
+  </div>
+</section>

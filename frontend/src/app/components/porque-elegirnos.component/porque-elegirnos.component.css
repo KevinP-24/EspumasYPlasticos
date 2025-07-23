@@ -1,0 +1,48 @@
+.por-que-elegirnos {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+  background-color: #f5f5f5;
+  font-family: 'Avenir Next Pro', sans-serif;
+}
+
+.contenedor-motivos {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.motivo {
+  background: white;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  flex: 1 1 250px;
+  max-width: 300px;
+  transition: transform 0.3s ease;
+}
+
+.motivo-centro {
+  transform: translateY(40px);
+}
+
+.icono {
+  font-size: 2.5rem;
+  color: #009AA2;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  margin: 0.5rem 0;
+  color: #2D2D2D;
+}
+
+p {
+  color: #444444;
+  font-size: 0.95rem;
+}
