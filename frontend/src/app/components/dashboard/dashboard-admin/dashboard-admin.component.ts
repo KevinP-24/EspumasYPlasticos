@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AlertService } from '../../../services/alert.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faRightFromBracket, faGaugeHigh } from '@fortawesome/free-solid-svg-icons';
 
@@ -16,10 +17,17 @@ export class DashboardAdminComponent {
   faLogout = faRightFromBracket;
   faPanel = faGaugeHigh;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private alert: AlertService) {}
 
   logout(): void {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    this.alert.confirmarLogout().then(result => {
+      if (result.isConfirmed) {
+        localStorage.removeItem('token');
+        this.alert.mostrarLogoutExitoso();
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 1600);
+      }
+    });
   }
 }

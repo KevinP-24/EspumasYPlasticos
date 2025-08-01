@@ -24,15 +24,12 @@ router.get('/con-subcategorias', controller.obtenerCategoriasConSubcategorias);
 // 🔒 Rutas protegidas (requiere token)
 // ============================
 
-// Crear categoría sin ícono (solo nombre)
-router.post('/', verifyToken, controller.crearCategoria);
-
-// Crear categoría con ícono (enviado como FormData: campo 'imagen')
+// Crear categoría
 router.post(
-  '/con-icono',
+  '/',
   verifyToken,
-  upload.single('imagen'), // ← usa campo 'imagen' en FormData
-  controller.crearCategoriaConIcono
+  upload.single('imagen'),
+  controller.crearCategoria 
 );
 
 // Actualizar nombre y opcionalmente reemplazar ícono

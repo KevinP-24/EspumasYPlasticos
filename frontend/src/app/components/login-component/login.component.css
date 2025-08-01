@@ -87,3 +87,21 @@
   margin-bottom: 10px;
   text-align: left;
 }
+/* Botón Regresar */
+.btn-regresar {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: #9EA0A3;
+  color: white;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-regresar:hover {
+  background-color: #444444;
+}

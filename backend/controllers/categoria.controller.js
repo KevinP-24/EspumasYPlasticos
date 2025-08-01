@@ -12,24 +12,7 @@ exports.obtenerCategorias = async (req, res) => {
   }
 };
 
-// ✅ Crear categoría sin ícono
 exports.crearCategoria = async (req, res) => {
-  const { nombre } = req.body;
-  if (!nombre) {
-    return res.status(400).json({ error: 'El nombre es obligatorio' });
-  }
-
-  try {
-    const [result] = await db.query('INSERT INTO categorias (nombre) VALUES (?)', [nombre]);
-    res.status(201).json({ mensaje: 'Categoría creada con éxito', id: result.insertId });
-  } catch (err) {
-    console.error('❌ Error al crear categoría:', err);
-    res.status(500).json({ error: 'No se pudo crear la categoría' });
-  }
-};
-
-// ✅ Crear categoría con ícono (formulario tipo multipart)
-exports.crearCategoriaConIcono = async (req, res) => {
   const { nombre } = req.body;
   const icono_url = req.file?.path || null;
   const icono_public_id = req.file?.filename || null;
@@ -39,18 +22,23 @@ exports.crearCategoriaConIcono = async (req, res) => {
   }
 
   try {
-    const [result] = await db.query(
-      'INSERT INTO categorias (nombre, icono_url, icono_public_id) VALUES (?, ?, ?)',
-      [nombre, icono_url, icono_public_id]
-    );
+    const query = icono_url
+      ? 'INSERT INTO categorias (nombre, icono_url, icono_public_id) VALUES (?, ?, ?)'
+      : 'INSERT INTO categorias (nombre) VALUES (?)';
+
+    const params = icono_url
+      ? [nombre, icono_url, icono_public_id]
+      : [nombre];
+
+    const [result] = await db.query(query, params);
 
     res.status(201).json({
-      mensaje: 'Categoría creada con ícono',
+      mensaje: 'Categoría creada con éxito',
       id: result.insertId,
       icono_url
     });
   } catch (err) {
-    console.error('❌ Error al crear categoría con ícono:', err);
+    console.error('❌ Error al crear categoría:', err);
     res.status(500).json({ error: 'No se pudo crear la categoría' });
   }
 };

@@ -120,3 +120,86 @@ tr:hover {
   object-fit: contain;
   border-radius: 4px;
 }
+
+/* === BOTÓN VOLVER AL DASHBOARD === */
+.btn-volver {
+  background-color: #9EA0A3;
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background 0.3s ease;
+}
+
+.btn-volver:hover {
+  background-color: #444444;
+}
+
+/* === BOTÓN CREAR === */
+.btn-crear {
+  background-color: var(--color-secundario); /* #15CD82 */
+  color: var(--color-blanco);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background 0.3s;
+}
+
+.btn-crear:hover {
+  background-color: #0fa76b;
+}
+
+/* === BOTÓN ACTUALIZAR === */
+.btn-actualizar {
+  background-color: var(--color-principal); /* #009AA2 */
+  color: var(--color-blanco);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background 0.3s;
+}
+
+.btn-actualizar:hover {
+  background-color: #056D6D;
+}
+
+/* === BOTÓN CANCELAR === */
+.btn-cancelar {
+  background-color: var(--color-complementario-5); /* #444444 */
+  color: var(--color-blanco);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-cancelar:hover {
+  background-color: #2d2d2d;
+}
+
+/* === INPUT DE IMAGEN === */
+.file-input-wrapper input[type="file"] {
+  padding: 10px;
+  border: 2px dashed var(--color-complementario-2); /* #E1E2E3 */
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  transition: border-color 0.3s;
+  width: 100%;
+  font-size: 14px;
+}
+
+.file-input-wrapper input[type="file"]:hover {
+  border-color: var(--color-principal); /* #009AA2 */
+}
+
