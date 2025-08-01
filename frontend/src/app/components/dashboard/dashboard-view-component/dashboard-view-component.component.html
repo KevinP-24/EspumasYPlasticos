@@ -1,0 +1,18 @@
+  <main class="dashboard-main">
+    <div class="card-grid">
+      <div class="card" (click)="navegar('categorias')">
+        <fa-icon [icon]="faCategorias" size="2x"></fa-icon>
+        <span>Categorías</span>
+      </div>
+
+      <div class="card" (click)="navegar('subcategorias')">
+        <fa-icon [icon]="faSubcategorias" size="2x"></fa-icon>
+        <span>Subcategorías</span>
+      </div>
+
+      <div class="card" (click)="navegar('productos')">
+        <fa-icon [icon]="faProductos" size="2x"></fa-icon>
+        <span>Productos</span>
+      </div>
+    </div>
+  </main>

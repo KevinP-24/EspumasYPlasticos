@@ -6,21 +6,19 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTags, faLayerGroup, faBox } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-dashboard-admin',
+  selector: 'app-dashboard-view-component',
   standalone: true,
   imports: [CommonModule, RouterModule, FontAwesomeModule],
-  templateUrl: './dashboard-admin.component.html',
-  styleUrls: ['./dashboard-admin.component.css']
+  templateUrl: './dashboard-view-component.component.html',
+  styleUrls: ['./dashboard-view-component.component.css']
 })
-export class DashboardAdminComponent {
-  // Íconos
+export class DashboardViewComponentComponent {
   faCategorias = faTags;
   faSubcategorias = faLayerGroup;
   faProductos = faBox;
 
   constructor(private router: Router) {}
 
-  // Método para navegar a la ruta interna
   navegar(ruta: string): void {
     this.router.navigate([`/admin/${ruta}`]);
   }

@@ -1,0 +1,53 @@
+<div class="categorias-container">
+  <!-- Panel izquierdo: Formulario -->
+  <div class="formulario">
+    <h3>{{ editando ? 'Editar Categoría' : 'Crear Categoría' }}</h3>
+
+    <form [formGroup]="formCategoria" (ngSubmit)="guardarCategoria()">
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input id="nombre" type="text" formControlName="nombre" />
+      </div>
+
+      <div class="form-group">
+        <label for="icono">Ícono:</label>
+        <input id="icono" type="file" (change)="onFileChange($event)" />
+        <img *ngIf="previewUrl" [src]="previewUrl" alt="Vista previa" class="preview-img" />
+      </div>
+
+      <button type="submit" [disabled]="formCategoria.invalid">
+        {{ editando ? 'Actualizar' : 'Crear' }}
+      </button>
+
+      <button type="button" class="cancelar" *ngIf="editando" (click)="cancelarEdicion()">
+        Cancelar
+      </button>
+    </form>
+  </div>
+
+  <!-- Panel derecho: Tabla -->
+  <div class="tabla">
+    <h3>Categorías Registradas</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Ícono</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cat of categorias" (click)="seleccionar(cat)">
+          <td>{{ cat.nombre }}</td>
+          <td>
+            <img *ngIf="cat.icono_url" [src]="cat.icono_url" class="icono-mini" />
+          </td>
+          <td>
+            <button type="button" (click)="eliminar(cat.id); $event.stopPropagation()">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
