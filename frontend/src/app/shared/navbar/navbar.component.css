@@ -3,12 +3,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #e6e6e67a;
+  background-color: #ffffff;
   padding: 10px 30px;
   position: sticky;
   top: 0;
   z-index: 1000;
   font-family: 'Avenir Next LT Pro', sans-serif;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+}
+
+.head:hover {
+  box-shadow: 0 4px 16px rgba(21, 205, 130, 0.1);
 }
 
 /* === MENÚ PRINCIPAL === */
@@ -24,7 +30,7 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  transition: transform 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-group.izquierda.shift {
@@ -42,8 +48,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: width 0.4s ease;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: visible;
+  cursor: pointer;
+}
+
+.logo-dual:hover {
+  filter: drop-shadow(0 4px 8px rgba(21, 205, 130, 0.2));
 }
 
 .logo-dual.expandido {
@@ -88,13 +99,14 @@
 .login-icon {
   font-size: 1.2rem;
   color: #2D2D2D;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.3s ease;
   margin-left: 20px;
   cursor: pointer;
 }
 
 .login-icon:hover {
   color: #15CD82;
+  transform: scale(1.15) rotate(10deg);
 }
 
 /* === ENLACES === */
@@ -104,7 +116,7 @@
   color: #2D2D2D;
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 /* Subrayado solo en hover */
@@ -116,7 +128,12 @@
   width: 0%;
   height: 2px;
   background-color: #15CD82;
-  transition: width 0.3s ease;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-group a:hover {
+  color: #15CD82;
+  transform: translateY(-2px);
 }
 
 .nav-group a:hover::after {
@@ -132,6 +149,7 @@
 /* Enlace activo solo resalta con color */
 .nav-group a.active {
   color: #15CD82;
+  font-weight: 600;
 }
 .nav-group a.active::after {
   content: none;
@@ -178,7 +196,7 @@ a.active {
     top: 60px;
     left: 0;
     right: 0;
-    background-color: #e6e6e6;
+    background-color: #ffffff;
     flex-direction: column;
     align-items: center;
     gap: 15px;
@@ -187,6 +205,7 @@ a.active {
     max-height: 0;
     opacity: 0;
     transition: max-height 0.4s ease, opacity 0.4s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
 
   .navbar-content.abierto {
