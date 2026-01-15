@@ -41,5 +41,7 @@ if (fs.existsSync(path.join(angularPath, 'index.html'))) {
 
 // 🚀 Iniciar servidor
 app.listen(PORT, () => {
+  console.log('\n========================================');
   console.log(`✅ Backend escuchando en http://localhost:${PORT}`);
+  console.log('========================================\n');
 });

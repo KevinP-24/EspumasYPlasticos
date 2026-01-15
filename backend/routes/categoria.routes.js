@@ -4,8 +4,8 @@ const router = express.Router();
 // 🔐 Middleware para validar token JWT
 const verifyToken = require('../middleware/auth.middleware');
 
-// 📤 Configuración de Multer con Cloudinary (para íconos)
-const { upload } = require('../config/cloudinary');
+// 📤 Middleware de upload para iconos de categorías
+const { categoryUpload } = require('../middleware/upload.middleware');
 
 // 🎯 Controlador de categorías
 const controller = require('../controllers/categoria.controller');
@@ -28,7 +28,7 @@ router.get('/con-subcategorias', controller.obtenerCategoriasConSubcategorias);
 router.post(
   '/',
   verifyToken,
-  upload.single('imagen'),
+  categoryUpload,
   controller.crearCategoria 
 );
 
@@ -36,7 +36,7 @@ router.post(
 router.put(
   '/:id',
   verifyToken,
-  upload.single('imagen'), // opcional en el frontend
+  categoryUpload,
   controller.actualizarCategoria
 );
 

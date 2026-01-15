@@ -4,8 +4,8 @@ const router = express.Router();
 // 🔐 Middleware para verificar JWT del usuario
 const verifyToken = require('../middleware/auth.middleware');
 
-// 📤 Multer configurado con Cloudinary para subir imágenes
-const { upload } = require('../config/cloudinary');
+// 📤 Middleware de upload para múltiples imágenes de productos
+const { multipleUpload } = require('../middleware/upload.middleware');
 
 // 🎯 Controlador de lógica de productos
 const controller = require('../controllers/producto.controller');
@@ -29,7 +29,7 @@ router.get('/:id', controller.obtenerProductoPorId);
 router.post(
   '/',
   verifyToken,
-  upload.array('imagenes', 5),
+  multipleUpload,
   controller.crearProductoDesdeRuta
 );
 
@@ -37,7 +37,7 @@ router.post(
 router.put(
   '/:id',
   verifyToken,
-  upload.array('imagenes', 5),
+  multipleUpload,
   controller.actualizarProducto
 );
 
