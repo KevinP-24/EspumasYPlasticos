@@ -14,8 +14,8 @@ exports.obtenerCategorias = async (req, res) => {
 
 exports.crearCategoria = async (req, res) => {
   const { nombre } = req.body;
-  const icono_url = req.file?.path || null;
-  const icono_public_id = req.file?.filename || null;
+  const icono_url = req.imageInfo?.url || null;
+  const icono_public_id = req.imageInfo?.publicId || null;
 
   if (!nombre) {
     return res.status(400).json({ error: 'El nombre es obligatorio' });
@@ -47,8 +47,8 @@ exports.crearCategoria = async (req, res) => {
 exports.actualizarCategoria = async (req, res) => {
   const { id } = req.params;
   const { nombre } = req.body;
-  const nuevoIcono = req.file?.path;
-  const nuevoPublicId = req.file?.filename;
+  const nuevoIcono = req.imageInfo?.url;
+  const nuevoPublicId = req.imageInfo?.publicId;
 
   if (!nombre) {
     return res.status(400).json({ error: 'El nombre es obligatorio' });
@@ -61,6 +61,7 @@ exports.actualizarCategoria = async (req, res) => {
     const oldPublicId = rows[0].icono_public_id;
 
     if (nuevoIcono && oldPublicId) {
+      const { cloudinary } = require('../config/cloudinary');
       await cloudinary.uploader.destroy(oldPublicId);
     }
 

@@ -5,7 +5,7 @@ const router = express.Router();
 const verifyToken = require('../middleware/auth.middleware');
 
 // 📤 Middleware de upload para múltiples imágenes de productos
-const { multipleUpload } = require('../middleware/upload.middleware');
+const { productsMultipleUpload } = require('../middleware/upload.middleware');
 
 // 🎯 Controlador de lógica de productos
 const controller = require('../controllers/producto.controller');
@@ -29,7 +29,7 @@ router.get('/:id', controller.obtenerProductoPorId);
 router.post(
   '/',
   verifyToken,
-  multipleUpload,
+  productsMultipleUpload,
   controller.crearProductoDesdeRuta
 );
 
@@ -37,7 +37,7 @@ router.post(
 router.put(
   '/:id',
   verifyToken,
-  multipleUpload,
+  productsMultipleUpload,
   controller.actualizarProducto
 );
 

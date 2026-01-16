@@ -1,8 +1,9 @@
 // 📦 Importamos las librerías necesarias
-const cloudinary = require('cloudinary').v2; // SDK oficial de Cloudinary
-const CloudinaryStorage = require('multer-storage-cloudinary'); // Adaptador Multer para Cloudinary
-const multer = require('multer'); // Middleware para manejo de multipart/form-data
-require('dotenv').config(); // Carga variables de entorno desde .env
+const cloudinaryLib = require('cloudinary');
+const cloudinary = cloudinaryLib.v2;
+const multer = require('multer');
+const streamifier = require('streamifier');
+require('dotenv').config();
 
 // 🔍 Validar variables de entorno de Cloudinary
 console.log('\n☁️  Validando configuración de Cloudinary...');
@@ -19,13 +20,13 @@ console.log('   ✅ Variables de entorno configuradas');
 console.log(`   ☁️  Cloud Name: ${process.env.CLOUDINARY_CLOUD_NAME}`);
 console.log(`   🔑 API Key: ${process.env.CLOUDINARY_API_KEY?.substring(0, 8)}...`);
 
-// ✅ Configuración de Cloudinary con variables del entorno
+// ✅ Configuración de Cloudinary
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,     // Nombre de tu cuenta Cloudinary o empresa 
-  api_key: process.env.CLOUDINARY_API_KEY,           // tu API Key de Cloudinary
-  api_secret: process.env.CLOUDINARY_API_SECRET,     // tu API Secret de Cloudinary
-  secure: true,                                       // Usar HTTPS
-  timeout: 30000                                      // Timeout de 30 segundos
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
+  timeout: 30000
 });
 
 // 🔗 Probar conexión a Cloudinary
@@ -36,64 +37,82 @@ cloudinary.api.ping()
   })
   .catch((error) => {
     console.error('❌ Error conectando a Cloudinary:', error.message);
-    console.error('\n🔧 Detalles:');
-    console.error(`   ${error}`);
   });
 
-// 🗃️ Configuración de almacenamiento para Multer usando Cloudinary
-const createStorage = (folderName = 'espumas_plasticos_general') => {
-  return new CloudinaryStorage({
-    cloudinary,
-    params: {
-      folder: folderName, // Carpeta específica en Cloudinary
-      allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif'], // Formatos permitidos
-      transformation: [{ width: 800, height: 600, crop: 'limit' }], // Redimensionar automáticamente
-      resource_type: 'image',
-      public_id: (req, file) => {
-        // Generar ID único: timestamp + random string + nombre original sin extensión
-        const timestamp = Date.now();
-        const randomStr = Math.random().toString(36).substring(2, 9);
-        const originalName = file.originalname.split('.')[0].replace(/[^a-zA-Z0-9]/g, '_');
-        return `${timestamp}-${randomStr}-${originalName}`;
+// 🧠 FUNCIÓN SIMPLIFICADA: Crear uploader con memoria
+const createUploader = (folderName = 'espumas_plasticos_general', fieldName = 'imagen') => {
+  console.log(`📁 Configurando uploader para carpeta: ${folderName}, campo: ${fieldName}`);
+  
+  const multerMiddleware = multer({
+    storage: multer.memoryStorage(),
+    fileFilter: (req, file, cb) => {
+      const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+      if (validTypes.includes(file.mimetype)) {
+        cb(null, true);
+      } else {
+        cb(new Error('Formato de imagen no permitido. Solo JPEG, PNG, JPG, WEBP'), false);
       }
+    },
+    limits: {
+      fileSize: 5 * 1024 * 1024
+    }
+  });
+  
+  return multerMiddleware.single(fieldName);
+};
+
+// 📤 FUNCIÓN PARA SUBIR A CLOUDINARY
+const uploadToCloudinary = (fileBuffer, folderName) => {
+  return new Promise((resolve, reject) => {
+    console.log(`☁️  Iniciando upload a carpeta: ${folderName}`);
+    
+    const timeoutId = setTimeout(() => {
+      reject(new Error('Timeout: Cloudinary no respondió en 25 segundos'));
+    }, 25000);
+    
+    try {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: folderName,
+          public_id: `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
+          allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif'],
+          transformation: [{ width: 800, height: 600, crop: 'limit' }]
+        },
+        (error, result) => {
+          clearTimeout(timeoutId);
+          
+          if (error) {
+            console.error('❌ Error en Cloudinary:', error);
+            reject(error);
+          } else {
+            console.log(`✅ Upload completado: ${result.public_id}`);
+            resolve(result);
+          }
+        }
+      );
+      
+      uploadStream.on('error', (streamError) => {
+        clearTimeout(timeoutId);
+        console.error('❌ Error en stream:', streamError);
+        reject(streamError);
+      });
+      
+      const readableStream = streamifier.createReadStream(fileBuffer);
+      readableStream.pipe(uploadStream);
+      
+      readableStream.on('error', (readError) => {
+        clearTimeout(timeoutId);
+        console.error('❌ Error lectura stream:', readError);
+        reject(readError);
+      });
+      
+    } catch (setupError) {
+      clearTimeout(timeoutId);
+      console.error('❌ Error configurando upload:', setupError);
+      reject(setupError);
     }
   });
 };
-
-// 🛡️ Filtro de archivos: solo se permiten imágenes válidas
-const fileFilter = (req, file, cb) => {
-  const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp']; // Tipos MIME válidos
-  if (validTypes.includes(file.mimetype)) {
-    cb(null, true); // ✅ Aceptado
-  } else {
-    cb(new Error('Formato de imagen no permitido. Solo se permiten: JPEG, PNG, JPG, WEBP'), false); // ❌ Rechazado
-  }
-};
-
-// 🎯 Instancias de Multer configuradas para diferentes propósitos
-const uploadProduct = multer({ 
-  storage: createStorage('espumas_plasticos_productos'),
-  fileFilter,
-  limits: {
-    fileSize: 5 * 1024 * 1024 // 5MB máximo
-  }
-});
-
-const uploadCategory = multer({ 
-  storage: createStorage('espumas_plasticos_categorias'),
-  fileFilter,
-  limits: {
-    fileSize: 2 * 1024 * 1024 // 2MB máximo para iconos
-  }
-});
-
-const uploadGeneric = multer({ 
-  storage: createStorage('espumas_plasticos_general'),
-  fileFilter,
-  limits: {
-    fileSize: 5 * 1024 * 1024 // 5MB máximo
-  }
-});
 
 // 🔍 Función para probar conexión a Cloudinary
 async function testCloudinaryConnection() {
@@ -160,11 +179,10 @@ function getOptimizedUrl(publicId, width = 800, height = 600) {
 
 // 🚀 Exportamos para uso en rutas o controladores
 module.exports = {
-  cloudinary,          // Instancia de Cloudinary
-  uploadProduct,       // Para productos: uploadProduct.single('imagen')
-  uploadCategory,      // Para categorías: uploadCategory.single('icono')
-  uploadGeneric,       // Para otros usos: uploadGeneric.single('archivo')
-  testCloudinaryConnection, // Probar conexión
-  deleteImage,         // Eliminar imágenes
-  getOptimizedUrl      // Obtener URL optimizada
+  cloudinary,
+  createUploader,
+  uploadToCloudinary,
+  testCloudinaryConnection,
+  deleteImage,
+  getOptimizedUrl
 };

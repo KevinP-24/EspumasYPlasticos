@@ -78,7 +78,7 @@ exports.crearProductoDesdeRuta = async (req, res) => {
     }
 
     // ✅ Validación de imágenes (mínimo 1)
-    if (!req.files || req.files.length === 0) {
+    if (!req.imagesInfo || req.imagesInfo.length === 0) {
       return res.status(400).json({ error: 'Debes subir al menos una imagen del producto.' });
     }
 
@@ -93,9 +93,9 @@ exports.crearProductoDesdeRuta = async (req, res) => {
     const productoId = result.insertId;
 
     // 2️⃣ Insertar las imágenes en la tabla producto_imagenes
-    const insertImagenes = req.files.map(file => {
-      const imagen_url = file.path;
-      const public_id = `plaxtilineas_productos/${file.filename}`;
+    const insertImagenes = req.imagesInfo.map(imageInfo => {
+      const imagen_url = imageInfo.url;
+      const public_id = imageInfo.publicId;
 
       return connection.query(
         `INSERT INTO producto_imagenes (producto_id, imagen_url, public_id)
@@ -146,7 +146,7 @@ exports.actualizarProducto = async (req, res) => {
     );
 
     // 🔁 3. Si se subieron nuevas imágenes, reemplazamos las anteriores
-    if (req.files && req.files.length > 0) {
+    if (req.imagesInfo && req.imagesInfo.length > 0) {
       // 3.1 Obtener imágenes actuales
       const [imagenesActuales] = await connection.query(
         'SELECT public_id FROM producto_imagenes WHERE producto_id = ?',
@@ -163,9 +163,9 @@ exports.actualizarProducto = async (req, res) => {
       await connection.query('DELETE FROM producto_imagenes WHERE producto_id = ?', [id]);
 
       // 3.4 Insertar nuevas imágenes
-      const nuevasImagenes = req.files.map(file => {
-        const imagen_url = file.path;
-        const public_id = `plaxtilineas_productos/${file.filename}`;
+      const nuevasImagenes = req.imagesInfo.map(imageInfo => {
+        const imagen_url = imageInfo.url;
+        const public_id = imageInfo.publicId;
         return connection.query(
           `INSERT INTO producto_imagenes (producto_id, imagen_url, public_id) VALUES (?, ?, ?)`,
           [id, imagen_url, public_id]

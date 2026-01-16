@@ -1,17 +1,14 @@
 // middleware/upload.middleware.js
-const { 
-  uploadProduct, 
-  uploadCategory, 
-  uploadGeneric,
-  deleteImage 
-} = require('../config/cloudinary');
+const { createUploader, uploadToCloudinary } = require('../config/cloudinary');
+const multer = require('multer');
 
 // Middleware para upload de productos
 const productUpload = (req, res, next) => {
-  const uploadMiddleware = uploadProduct.single('imagen');
+  const uploadMiddleware = createUploader('espumas_plasticos_productos', 'imagen');
   
-  uploadMiddleware(req, res, (err) => {
+  uploadMiddleware(req, res, async (err) => {
     if (err) {
+      console.error('❌ Error en productUpload:', err.message);
       return res.status(400).json({
         success: false,
         message: 'Error en upload de imagen del producto',
@@ -19,14 +16,24 @@ const productUpload = (req, res, next) => {
       });
     }
     
-    // Si se subió un archivo, agregar información al request
     if (req.file) {
-      req.imageInfo = {
-        url: req.file.path,
-        publicId: req.file.filename,
-        originalName: req.file.originalname,
-        size: req.file.size
-      };
+      try {
+        console.log('📸 Subiendo archivo a Cloudinary...');
+        const result = await uploadToCloudinary(req.file.buffer, 'espumas_plasticos_productos');
+        req.imageInfo = {
+          url: result.secure_url,
+          publicId: result.public_id,
+          originalName: req.file.originalname,
+          size: req.file.size
+        };
+      } catch (cloudinaryError) {
+        console.error('❌ Error subiendo a Cloudinary:', cloudinaryError.message);
+        return res.status(500).json({
+          success: false,
+          message: 'Error subiendo imagen a Cloudinary',
+          error: cloudinaryError.message
+        });
+      }
     }
     
     next();
@@ -35,10 +42,11 @@ const productUpload = (req, res, next) => {
 
 // Middleware para upload de categorías
 const categoryUpload = (req, res, next) => {
-  const uploadMiddleware = uploadCategory.single('icono');
+  const uploadMiddleware = createUploader('espumas_plasticos_categorias', 'icono');
   
-  uploadMiddleware(req, res, (err) => {
+  uploadMiddleware(req, res, async (err) => {
     if (err) {
+      console.error('❌ Error en categoryUpload:', err.message);
       return res.status(400).json({
         success: false,
         message: 'Error en upload de icono de categoría',
@@ -47,24 +55,47 @@ const categoryUpload = (req, res, next) => {
     }
     
     if (req.file) {
-      req.imageInfo = {
-        url: req.file.path,
-        publicId: req.file.filename,
-        originalName: req.file.originalname,
-        size: req.file.size
-      };
+      try {
+        console.log('📸 Subiendo icono a Cloudinary...');
+        const result = await uploadToCloudinary(req.file.buffer, 'espumas_plasticos_categorias');
+        req.imageInfo = {
+          url: result.secure_url,
+          publicId: result.public_id,
+          originalName: req.file.originalname,
+          size: req.file.size
+        };
+      } catch (cloudinaryError) {
+        console.error('❌ Error subiendo a Cloudinary:', cloudinaryError.message);
+        return res.status(500).json({
+          success: false,
+          message: 'Error subiendo icono a Cloudinary',
+          error: cloudinaryError.message
+        });
+      }
     }
     
     next();
   });
 };
 
-// Middleware para upload de múltiples imágenes
-const multipleUpload = (req, res, next) => {
-  const uploadMiddleware = uploadGeneric.array('imagenes', 5); // Máximo 5 imágenes
+// Middleware para upload de múltiples imágenes de productos
+const productsMultipleUpload = (req, res, next) => {
+  const multerMiddleware = multer({
+    storage: multer.memoryStorage(),
+    fileFilter: (req, file, cb) => {
+      const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+      if (validTypes.includes(file.mimetype)) {
+        cb(null, true);
+      } else {
+        cb(new Error('Formato no permitido'), false);
+      }
+    },
+    limits: { fileSize: 5 * 1024 * 1024 }
+  }).array('imagenes', 5);
   
-  uploadMiddleware(req, res, (err) => {
+  multerMiddleware(req, res, async (err) => {
     if (err) {
+      console.error('❌ Error en productsMultipleUpload:', err.message);
       return res.status(400).json({
         success: false,
         message: 'Error en upload de múltiples imágenes',
@@ -73,52 +104,90 @@ const multipleUpload = (req, res, next) => {
     }
     
     if (req.files && req.files.length > 0) {
-      req.imagesInfo = req.files.map(file => ({
-        url: file.path,
-        publicId: file.filename,
-        originalName: file.originalname,
-        size: file.size
-      }));
+      try {
+        console.log(`📷 Subiendo ${req.files.length} imágenes a Cloudinary...`);
+        const uploadPromises = req.files.map(file =>
+          uploadToCloudinary(file.buffer, 'espumas_plasticos_productos')
+        );
+        const results = await Promise.all(uploadPromises);
+        
+        req.imagesInfo = results.map((result, index) => ({
+          url: result.secure_url,
+          publicId: result.public_id,
+          originalName: req.files[index].originalname,
+          size: req.files[index].size
+        }));
+        
+        console.log(`✅ ${req.imagesInfo.length} imágenes uploadadas correctamente`);
+      } catch (cloudinaryError) {
+        console.error('❌ Error subiendo a Cloudinary:', cloudinaryError.message);
+        return res.status(500).json({
+          success: false,
+          message: 'Error subiendo imágenes a Cloudinary',
+          error: cloudinaryError.message
+        });
+      }
     }
     
     next();
   });
 };
 
-// Middleware para eliminar imagen
-const deleteImageMiddleware = async (req, res, next) => {
-  try {
-    const { publicId } = req.params;
-    
-    if (!publicId) {
+// Middleware para upload de múltiples imágenes (genérico, para otros usos)
+const multipleUpload = (req, res, next) => {
+  const multerMiddleware = multer({
+    storage: multer.memoryStorage(),
+    fileFilter: (req, file, cb) => {
+      const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+      if (validTypes.includes(file.mimetype)) {
+        cb(null, true);
+      } else {
+        cb(new Error('Formato no permitido'), false);
+      }
+    },
+    limits: { fileSize: 5 * 1024 * 1024 }
+  }).array('imagenes', 5);
+  
+  multerMiddleware(req, res, async (err) => {
+    if (err) {
+      console.error('❌ Error en multipleUpload:', err.message);
       return res.status(400).json({
         success: false,
-        message: 'Se requiere publicId de la imagen'
+        message: 'Error en upload de múltiples imágenes',
+        error: err.message
       });
     }
     
-    const deleted = await deleteImage(publicId);
-    
-    if (!deleted) {
-      return res.status(500).json({
-        success: false,
-        message: 'No se pudo eliminar la imagen'
-      });
+    if (req.files && req.files.length > 0) {
+      try {
+        const uploadPromises = req.files.map(file =>
+          uploadToCloudinary(file.buffer, 'espumas_plasticos_general')
+        );
+        const results = await Promise.all(uploadPromises);
+        
+        req.imagesInfo = results.map((result, index) => ({
+          url: result.secure_url,
+          publicId: result.public_id,
+          originalName: req.files[index].originalname,
+          size: req.files[index].size
+        }));
+      } catch (cloudinaryError) {
+        console.error('❌ Error subiendo a Cloudinary:', cloudinaryError.message);
+        return res.status(500).json({
+          success: false,
+          message: 'Error subiendo imágenes a Cloudinary',
+          error: cloudinaryError.message
+        });
+      }
     }
     
     next();
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Error eliminando imagen',
-      error: error.message
-    });
-  }
+  });
 };
 
 module.exports = {
   productUpload,
   categoryUpload,
   multipleUpload,
-  deleteImageMiddleware
+  productsMultipleUpload
 };
