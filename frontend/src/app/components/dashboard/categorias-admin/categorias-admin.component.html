@@ -6,20 +6,30 @@
       ← Volver al Dashboard
     </button>
 
-    <h3>{{ editando ? 'Editar Categoría' : 'Crear Categoría' }}</h3>
+    <h3>{{ editando ? 'Editar Categoría' : 'Nueva Categoría' }}</h3>
 
     <form [formGroup]="formCategoria" (ngSubmit)="guardarCategoria()">
       <!-- Campo nombre -->
       <div class="form-group">
-        <label for="nombre">Nombre:</label>
-        <input id="nombre" type="text" formControlName="nombre" />
+        <label for="nombre">Nombre de la Categoría:</label>
+        <input 
+          id="nombre" 
+          type="text" 
+          formControlName="nombre"
+          placeholder="Ej: Espumas" />
       </div>
 
       <!-- Campo icono -->
       <div class="form-group file-input-wrapper">
-        <label for="icono">Ícono:</label>
-        <input id="icono" type="file" (change)="onFileChange($event)" />
-        <img *ngIf="previewUrl" [src]="previewUrl" alt="Vista previa" class="preview-img" />
+        <label for="icono">Ícono de la Categoría:</label>
+        <input 
+          id="icono" 
+          type="file"
+          accept="image/*"
+          (change)="onFileChange($event)" />
+        <div class="preview-container" *ngIf="previewUrl">
+          <img [src]="previewUrl" alt="Vista previa del ícono" class="preview-img" />
+        </div>
       </div>
 
       <!-- Botones -->
@@ -27,7 +37,7 @@
         type="submit"
         [ngClass]="editando ? 'btn-actualizar' : 'btn-crear'"
         [disabled]="formCategoria.invalid">
-        {{ editando ? 'Actualizar' : 'Crear' }}
+        {{ editando ? '✓ Actualizar' : '+ Crear' }}
       </button>
 
       <button
@@ -35,7 +45,7 @@
         class="btn-cancelar"
         *ngIf="editando"
         (click)="cancelarEdicion()">
-        Cancelar
+        ✕ Cancelar
       </button>
     </form>
   </div>
@@ -54,12 +64,21 @@
       </thead>
       <tbody>
         <tr *ngFor="let cat of categorias" (click)="seleccionar(cat)">
-          <td>{{ cat.nombre }}</td>
+          <td class="cell-nombre">{{ cat.nombre }}</td>
           <td>
-            <img *ngIf="cat.icono_url" [src]="cat.icono_url" class="icono-mini" />
+            <img 
+              *ngIf="cat.icono_url" 
+              [src]="cat.icono_url" 
+              [alt]="'Ícono de ' + cat.nombre"
+              class="icono-mini" />
           </td>
           <td>
-            <button type="button" (click)="eliminar(cat.id); $event.stopPropagation()">🗑️</button>
+            <button 
+              type="button" 
+              class="btn-delete"
+              (click)="eliminar(cat.id); $event.stopPropagation()">
+              🗑️ Eliminar
+            </button>
           </td>
         </tr>
       </tbody>

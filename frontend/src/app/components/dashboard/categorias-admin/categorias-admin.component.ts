@@ -68,7 +68,7 @@ export class CategoriasAdminComponent implements OnInit {
     formData.append('nombre', this.formCategoria.value.nombre);
 
     if (this.imagenSeleccionada) {
-      formData.append('imagen', this.imagenSeleccionada);
+      formData.append('icono', this.imagenSeleccionada);
     }
 
     if (this.editando && this.categoriaActualId !== undefined) {

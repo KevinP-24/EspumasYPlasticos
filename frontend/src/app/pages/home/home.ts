@@ -7,6 +7,8 @@ import { UbicacionComponent } from "../../components/ubicacion/ubicacion.compone
 import { RedesSocialesComponent } from "../../shared/botones-sociales/botones-sociales.component";
 import { HeroComponent } from "../../components/header-index/header-index.component";
 import { HeaderEnlacesComponent } from "../../components/header-enlaces/header-enlaces.component";
+import { CarruselHome } from "../../components/carrusel-home/carrusel-home";
+import { BannerHome } from "../../components/banner-home/banner-home";
 
 @Component({
   selector: 'app-home',
@@ -19,7 +21,9 @@ import { HeaderEnlacesComponent } from "../../components/header-enlaces/header-e
     UbicacionComponent,
     RedesSocialesComponent,
     HeaderEnlacesComponent,
-    HeroComponent
+    HeroComponent,
+    CarruselHome,
+    BannerHome
 ],
   templateUrl: './home.html',
   styleUrl: './home.css'

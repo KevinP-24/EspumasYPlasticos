@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faKey } from '@fortawesome/free-solid-svg-icons';
+import { faKey, faMapMarkerAlt, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-navbar',
@@ -13,6 +13,8 @@ import { faKey } from '@fortawesome/free-solid-svg-icons';
 })
 export class NavbarComponent {
   faKey = faKey;
+  faMapMarkerAlt = faMapMarkerAlt;
+  faMagnifyingGlass = faMagnifyingGlass;
   logoHover = false;
   menuAbierto = false;
 

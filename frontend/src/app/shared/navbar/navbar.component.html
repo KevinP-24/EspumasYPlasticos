@@ -2,35 +2,55 @@
   <!-- Botón hamburguesa a la izquierda -->
   <button class="hamburger" (click)="toggleMenu()" aria-label="Menú">&#9776;</button>
 
-  <div class="navbar-content" [class.abierto]="menuAbierto">
-    <!-- Menú izquierdo -->
-    <div class="nav-group izquierda" [class.shift]="logoHover">
-      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
-      <a routerLink="/productos" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Catálogo</a>
-    </div>
-
-    <!-- Logo central -->
-    <div class="logo-dual"
-         (mouseenter)="logoHover = true"
-         (mouseleave)="logoHover = false"
-         [class.expandido]="logoHover">
-      <a routerLink="/">
-        <img src="assets/img/logo-mini.png" alt="Logo Mini" class="logo-mini" />
-        <img src="assets/img/logo-grande.png" alt="Logo Grande" class="logo-grande" />
-      </a>
-    </div>
-
-    <!-- Menú derecho -->
-    <div class="nav-group derecha" [class.shift]="logoHover">
-      <a routerLink="/nosotros" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Quiénes Somos</a>
-      <a routerLink="/contacto" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Contacto</a>
+  <!-- EXTREMA IZQUIERDA: Ubicación -->
+  <div class="navbar-left">
+    <div class="location">
+      <fa-icon [icon]="faMapMarkerAlt" class="location-icon"></fa-icon>
+      <span class="location-text">Armenia</span>
     </div>
   </div>
 
-  <!-- Ícono llave a la derecha -->
-  <div class="login-wrapper">
-    <a routerLink="/login" aria-label="Ingreso administrativo">
-      <fa-icon [icon]="faKey" class="login-icon"></fa-icon>
-    </a>
+  <!-- CENTRO: Menú + Logo -->
+  <div class="navbar-center">
+    <div class="navbar-content" [class.abierto]="menuAbierto">
+      <!-- Menú izquierdo -->
+      <div class="nav-group izquierda" [class.shift]="logoHover">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+        <a routerLink="/productos" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Catálogo</a>
+      </div>
+
+      <!-- Logo central -->
+      <div class="logo-dual"
+           (mouseenter)="logoHover = true"
+           (mouseleave)="logoHover = false"
+           [class.expandido]="logoHover">
+        <a routerLink="/">
+          <img src="assets/img/logo-mini.png" alt="Logo Mini" class="logo-mini" />
+          <img src="assets/img/logo-grande.png" alt="Logo Grande" class="logo-grande" />
+        </a>
+      </div>
+
+      <!-- Menú derecho -->
+      <div class="nav-group derecha" [class.shift]="logoHover">
+        <a routerLink="/nosotros" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Quiénes Somos</a>
+        <a routerLink="/contacto" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Contacto</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXTREMA DERECHA: Buscador + Llave -->
+  <div class="navbar-right">
+    <!-- Buscador -->
+    <div class="search-wrapper">
+      <input type="text" class="search-input" placeholder="¿Qué estás buscando?">
+      <fa-icon [icon]="faMagnifyingGlass" class="search-icon"></fa-icon>
+    </div>
+
+    <!-- Ícono llave a la derecha -->
+    <div class="login-wrapper">
+      <a routerLink="/login" aria-label="Ingreso administrativo">
+        <fa-icon [icon]="faKey" class="login-icon"></fa-icon>
+      </a>
+    </div>
   </div>
 </header>

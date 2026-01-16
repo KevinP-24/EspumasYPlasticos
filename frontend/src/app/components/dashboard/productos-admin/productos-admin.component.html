@@ -1,1 +1,153 @@
-<p>productos-admin.component works!</p>
+<div class="productos-container">
+  <!-- Panel izquierdo: Formulario -->
+  <div class="formulario">
+    <!-- Botón Volver -->
+    <button class="btn-volver" type="button" (click)="volverAlDashboard()">
+      ← Volver al Dashboard
+    </button>
+
+    <h3>{{ editando ? 'Editar Producto' : 'Crear Producto' }}</h3>
+
+    <form [formGroup]="formProducto" (ngSubmit)="guardarProducto()">
+      <!-- Campo nombre -->
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input id="nombre" type="text" formControlName="nombre" />
+      </div>
+
+      <!-- Campo descripción -->
+      <div class="form-group">
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" formControlName="descripcion" rows="3"></textarea>
+      </div>
+
+      <!-- Campo cantidad y precio en la misma fila -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <!-- Campo cantidad -->
+        <div class="form-group">
+          <label for="cantidad">Cantidad:</label>
+          <input id="cantidad" type="number" formControlName="cantidad" min="1" />
+        </div>
+
+        <!-- Campo precio -->
+        <div class="form-group">
+          <label for="precio">Precio:</label>
+          <input id="precio" type="number" formControlName="precio" min="0.01" step="0.01" />
+        </div>
+      </div>
+
+      <!-- Campo subcategoría e imágenes en la misma fila -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <!-- Campo subcategoría -->
+        <div class="form-group">
+          <label for="subcategoria_id">Subcategoría:</label>
+          <select id="subcategoria_id" formControlName="subcategoria_id">
+            <option value="" disabled>Selecciona una subcategoría</option>
+            <option *ngFor="let sub of subcategorias" [value]="sub.id">
+              {{ sub.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <!-- Campo imágenes -->
+        <div class="form-group file-input-wrapper">
+          <label for="imagenes">Imágenes (máximo 5):</label>
+          <input id="imagenes" type="file" multiple accept="image/*" (change)="onFileChange($event)" />
+          <div class="preview-container">
+            <img *ngFor="let url of previewUrls" [src]="url" alt="Vista previa" class="preview-img" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones -->
+      <button
+        type="submit"
+        [ngClass]="editando ? 'btn-actualizar' : 'btn-crear'"
+        [disabled]="formProducto.invalid">
+        {{ editando ? 'Actualizar' : 'Crear' }}
+      </button>
+
+      <button
+        type="button"
+        class="btn-cancelar"
+        *ngIf="editando"
+        (click)="cancelarEdicion()">
+        Cancelar
+      </button>
+    </form>
+  </div>
+
+  <!-- Panel derecho: Tabla -->
+  <div class="tabla">
+    <h3>Productos Registrados</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Subcategoría</th>
+          <th>Precio</th>
+          <th>Cantidad</th>
+          <th>Imágenes</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prod of paginatedProducts" (click)="seleccionar(prod)" class="producto-row">
+          <td><span class="cell-nombre">{{ prod.nombre }}</span></td>
+          <td><span class="cell-subcategoria">{{ obtenerNombreSubcategoria(prod.subcategoria_id) }}</span></td>
+          <td><span class="cell-precio">${{ formatearPrecio(prod.precio) }}</span></td>
+          <td><span class="cell-cantidad">{{ prod.cantidad }}</span></td>
+          <td>
+            <span *ngIf="prod.imagenes && prod.imagenes.length > 0" class="img-count">
+              📷 {{ prod.imagenes.length }}
+            </span>
+            <span *ngIf="!prod.imagenes || prod.imagenes.length === 0" class="img-count empty">
+              ○
+            </span>
+          </td>
+          <td>
+            <button type="button" class="btn-delete" (click)="eliminar(prod.id); $event.stopPropagation()" title="Eliminar producto">
+              🗑️ Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 📄 Paginación -->
+    <div class="pagination-container">
+      <div class="pagination-info">
+        Mostrando {{ (currentPage - 1) * pageSize + 1 }} - {{ Math.min(currentPage * pageSize, totalProducts) }} de {{ totalProducts }} productos
+      </div>
+
+      <div class="pagination-controls">
+        <button 
+          (click)="irAPaginaAnterior()" 
+          [disabled]="currentPage === 1"
+          class="btn-pagination btn-prev"
+          title="Página anterior">
+          ← Anterior
+        </button>
+
+        <div class="page-numbers">
+          <button 
+            *ngFor="let page of [].constructor(totalPages); let i = index"
+            (click)="cambiarPagina(i + 1)"
+            [class.active]="currentPage === i + 1"
+            class="btn-page-number">
+            {{ i + 1 }}
+          </button>
+        </div>
+
+        <button 
+          (click)="irAPaginaSiguiente()" 
+          [disabled]="currentPage === totalPages"
+          class="btn-pagination btn-next"
+          title="Página siguiente">
+          Siguiente →
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

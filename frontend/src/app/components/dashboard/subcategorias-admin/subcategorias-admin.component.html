@@ -1,1 +1,81 @@
-<p>subcategorias-admin.component works!</p>
+<div class="subcategorias-container">
+  <!-- Panel izquierdo: Formulario -->
+  <div class="formulario">
+    <!-- Botón Volver -->
+    <button class="btn-volver" type="button" (click)="volverAlDashboard()">
+      ← Volver al Dashboard
+    </button>
+
+    <h3>{{ editando ? 'Editar Subcategoría' : 'Nueva Subcategoría' }}</h3>
+
+    <form [formGroup]="formSubcategoria" (ngSubmit)="guardarSubcategoria()">
+      <!-- Campo nombre -->
+      <div class="form-group">
+        <label for="nombre">Nombre de la Subcategoría:</label>
+        <input 
+          id="nombre" 
+          type="text" 
+          formControlName="nombre"
+          placeholder="Ej: Espuma Rígida" />
+      </div>
+
+      <!-- Campo categoría -->
+      <div class="form-group">
+        <label for="categoria_id">Categoría Padre:</label>
+        <select id="categoria_id" formControlName="categoria_id">
+          <option value="" disabled>Selecciona una categoría</option>
+          <option *ngFor="let cat of categorias" [value]="cat.id">
+            {{ cat.nombre }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Botones -->
+      <button
+        type="submit"
+        [ngClass]="editando ? 'btn-actualizar' : 'btn-crear'"
+        [disabled]="formSubcategoria.invalid">
+        {{ editando ? '✓ Actualizar' : '+ Crear' }}
+      </button>
+
+      <button
+        type="button"
+        class="btn-cancelar"
+        *ngIf="editando"
+        (click)="cancelarEdicion()">
+        ✕ Cancelar
+      </button>
+    </form>
+  </div>
+
+  <!-- Panel derecho: Tabla -->
+  <div class="tabla">
+    <h3>Subcategorías Registradas</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sub of subcategorias" (click)="seleccionar(sub)">
+          <td class="cell-nombre">{{ sub.nombre }}</td>
+          <td>
+            <span class="cell-subcategoria">{{ obtenerNombreCategoria(sub.categoria_id) }}</span>
+          </td>
+          <td>
+            <button 
+              type="button" 
+              class="btn-delete"
+              (click)="eliminar(sub.id); $event.stopPropagation()">
+              🗑️ Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

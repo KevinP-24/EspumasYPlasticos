@@ -8,22 +8,22 @@
     <!-- INFORMACIÓN DE CONTACTO -->
     <div class="footer-info">
       <h3>Contacto</h3>
-      <p><a href="mailto:espumasyplasticos.sas@gmail.com">espumasyplasticos.sas&#64;gmail.com</a></p>
-      <p><a href="mailto:comprasespumasyplasticos.sas@gmail.com">comprasespumasyplasticos.sas&#64;gmail.com</a></p>
-      <p><a href="mailto:ventasespumasyplasticos.sas@gmail.com">ventasespumasyplasticos.sas&#64;gmail.com</a></p>
+      <p><a [href]="'mailto:' + emails.principal">{{ emails.principal }}</a></p>
+      <p><a [href]="'mailto:' + emails.compras">{{ emails.compras }}</a></p>
+      <p><a [href]="'mailto:' + emails.ventas">{{ emails.ventas }}</a></p>
     </div>
 
     <!-- TELÉFONOS -->
     <div class="footer-info">
       <h3>Teléfonos</h3>
-      <p><strong>Móvil:</strong> <a href="tel:+573113416659">(57) 3113416659</a></p>
-      <p><strong>Teléfono Fijo:</strong> 606-7312577</p>
+      <p><strong>Móvil:</strong> <a [href]="'tel:' + telefonos.movil">(57) 3113416659</a></p>
+      <p><strong>Fijo:</strong> {{ telefonos.fijo }}</p>
     </div>
   </div>
 
-  <hr>
+  <hr />
 
   <div class="footer-bottom">
-    <p>&copy; 2025 All rights reserved - Espumas y Plásticos.</p>
+    <p>&copy; 2025 Espumas y Plásticos. Todos los derechos reservados.</p>
   </div>
 </footer>

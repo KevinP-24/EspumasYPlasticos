@@ -1,0 +1,187 @@
+/* Contenedor principal */
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 60px 20px 60px 150px;
+  gap: 0;
+  max-width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  position: relative;
+}
+
+/* Contenido del banner */
+.banner-content {
+  flex: 1 1 auto;
+  min-width: 300px;
+  z-index: 10;
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.banner-title {
+  font-family: 'Avenir Next LT Pro', sans-serif;
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #000;
+  margin: 0 0 16px 0;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.banner-title span {
+  color: #009AA2;
+  display: block;
+  margin-top: 8px;
+}
+
+.banner-description {
+  font-family: 'Avenir Next LT Pro', sans-serif;
+  font-size: 1.05rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+  max-width: 500px;
+}
+
+/* Wrapper de imagen */
+.banner-image-wrapper {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  z-index: 5;
+  animation: slideInRight 0.6s ease-out;
+  padding-right: 0;
+}
+
+.banner-image {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  max-height: 500px;
+  filter: drop-shadow(0 20px 40px rgba(0, 154, 162, 0.15));
+  transition: all 0.4s ease;
+  margin-right: -20px;
+}
+
+.banner-image-wrapper:hover .banner-image {
+  filter: drop-shadow(0 30px 60px rgba(0, 154, 162, 0.25));
+  transform: translateY(-8px);
+}
+
+/* Variante: Imagen a la izquierda */
+.banner.image-left {
+  padding: 60px 150px 60px 20px;
+  flex-direction: row-reverse;
+}
+
+.banner.image-left .banner-image-wrapper {
+  right: auto;
+  left: 0;
+  justify-content: flex-start;
+}
+
+/* Animaciones */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive */
+@media screen and (max-width: 1024px) {
+  .banner {
+    padding: 50px 20px;
+    gap: 20px;
+  }
+
+  .banner-title {
+    font-size: 2.8rem;
+  }
+
+  .banner-image {
+    max-height: 400px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .banner {
+    flex-direction: column;
+    padding: 40px 20px;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .banner.image-left {
+    flex-direction: column;
+  }
+
+  .banner-content {
+    min-width: auto;
+  }
+
+  .banner-title {
+    font-size: 2.2rem;
+  }
+
+  .banner-title span {
+    display: inline;
+    margin: 0 0 0 8px;
+  }
+
+  .banner-description {
+    max-width: 100%;
+    font-size: 1rem;
+  }
+
+  .banner-image-wrapper {
+    justify-content: center;
+  }
+
+  .banner-image {
+    max-height: 300px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .banner {
+    padding: 30px 16px;
+    gap: 20px;
+  }
+
+  .banner-title {
+    font-size: 1.8rem;
+  }
+
+  .banner-description {
+    font-size: 0.95rem;
+  }
+
+  .banner-image {
+    max-height: 200px;
+  }
+}

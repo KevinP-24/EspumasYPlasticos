@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CategoriaDTO,  } from '../../models/categorias/categoria.dto';
+import { CategoriaDTO } from '../../models/categorias/categoria.dto';
 import { CategoriaConSubcategoriasDTO } from '../../models/categorias/categoria-sub.dto';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -11,27 +12,52 @@ export class CategoriaService {
 
   constructor(private http: HttpClient) {}
 
-  // Obtener todas las categorías
+  /**
+   * Obtener todas las categorías
+   * @returns Observable<CategoriaDTO[]>
+   */
   obtenerCategorias(): Observable<CategoriaDTO[]> {
     return this.http.get<CategoriaDTO[]>(this.apiUrl);
   }
 
-  // Obtener categorías con subcategorías y cantidad de productos
+  /**
+   * Obtener categorías con subcategorías y cantidad de productos
+   * @returns Observable<CategoriaConSubcategoriasDTO[]>
+   */
   obtenerCategoriasConSubcategorias(): Observable<CategoriaConSubcategoriasDTO[]> {
     return this.http.get<CategoriaConSubcategoriasDTO[]>(`${this.apiUrl}/con-subcategorias`);
   }
 
-  // Crear nueva categoría (con o sin ícono)
+  /**
+   * Crear nueva categoría con ícono (opcional)
+   * FormData debe incluir:
+   * - nombre: string (requerido)
+   * - icono: File (opcional)
+   * @param data FormData con nombre e icono
+   * @returns Observable<any>
+   */
   crearCategoria(data: FormData): Observable<any> {
     return this.http.post(this.apiUrl, data);
   }
 
-  // Actualizar categoría
+  /**
+   * Actualizar categoría (nombre y/o ícono)
+   * FormData debe incluir:
+   * - nombre: string (requerido)
+   * - icono: File (opcional)
+   * @param id ID de la categoría
+   * @param data FormData con nombre e icono
+   * @returns Observable<any>
+   */
   actualizarCategoria(id: number, data: FormData): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, data);
   }
 
-  // Eliminar categoría
+  /**
+   * Eliminar categoría (también elimina ícono de Cloudinary)
+   * @param id ID de la categoría
+   * @returns Observable<any>
+   */
   eliminarCategoria(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }

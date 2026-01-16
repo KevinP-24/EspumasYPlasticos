@@ -5,41 +5,51 @@
 
     <form (ngSubmit)="login()" #loginForm="ngForm">
       <!-- Correo -->
-      <label for="correo">Correo electrónico</label>
-      <input
-        type="email"
-        id="correo"
-        name="correo"
-        [(ngModel)]="dto.correo"
-        required
-        #correoRef="ngModel"
-      />
-      <div class="error" *ngIf="correoRef.invalid && correoRef.touched">
-        El correo es obligatorio
+      <div>
+        <label for="correo">Correo electrónico</label>
+        <input
+          type="email"
+          id="correo"
+          name="correo"
+          [(ngModel)]="dto.correo"
+          placeholder="tu@email.com"
+          required
+          #correoRef="ngModel"
+        />
+        <div class="error" *ngIf="correoRef.invalid && correoRef.touched">
+          El correo es obligatorio y debe ser válido
+        </div>
       </div>
 
       <!-- Contraseña -->
-      <label for="password">Contraseña</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        [(ngModel)]="dto.password"
-        required
-        #passwordRef="ngModel"
-      />
-      <div class="error" *ngIf="passwordRef.invalid && passwordRef.touched">
-        La contraseña es obligatoria
+      <div>
+        <label for="password">Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          [(ngModel)]="dto.password"
+          placeholder="Tu contraseña"
+          required
+          #passwordRef="ngModel"
+        />
+        <div class="error" *ngIf="passwordRef.invalid && passwordRef.touched">
+          La contraseña es obligatoria
+        </div>
       </div>
 
       <!-- Error general -->
       <div class="error" *ngIf="error">{{ error }}</div>
 
-      <!-- Botón -->
-      <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
+      <!-- Botón Entrar -->
+      <button type="submit" [disabled]="loginForm.invalid">
+        Entrar al Panel
+      </button>
       
       <!-- Botón Regresar -->
-      <button type="button" class="btn-regresar" (click)="volverAlInicio()">Regresar al inicio</button>
+      <button type="button" class="btn-regresar" (click)="volverAlInicio()">
+        Regresar al inicio
+      </button>
     </form>
   </div>
 </div>

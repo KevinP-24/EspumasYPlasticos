@@ -16,6 +16,12 @@
   font-weight: 400;
 }
 
+/* Bloquear scroll horizontal */
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   font-family: 'Avenir Next LT Pro', sans-serif;
 }
@@ -24,4 +30,42 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* Estilos globales para scrollbar - WebKit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #009AA2 0%, #15CD82 100%);
+  border-radius: 10px;
+  border: 2px solid #f5f5f5;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #007A8A 0%, #10A860 100%);
+  box-shadow: 0 0 8px rgba(0, 154, 162, 0.3);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(180deg, #005F6F 0%, #0D8A52 100%);
+}
+
+/* Scrollbar para Firefox */
+* {
+  scrollbar-color: #009AA2 #f5f5f5;
+  scrollbar-width: thin;
+}
+
+/* Mejorar apariencia en corner */
+::-webkit-scrollbar-corner {
+  background: #f5f5f5;
 }

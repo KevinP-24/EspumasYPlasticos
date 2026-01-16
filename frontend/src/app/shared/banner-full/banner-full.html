@@ -1,0 +1,19 @@
+<section class="banner" [ngClass]="{ 'image-left': imagePosition === 'left' }">
+  <!-- Contenido izquierdo -->
+  <div class="banner-content">
+    <h1 class="banner-title">
+      {{ titleBlack }}
+      <span>{{ titleCyan }}</span>
+    </h1>
+    <p class="banner-description">{{ description }}</p>
+  </div>
+
+  <!-- Imagen derecha/izquierda -->
+  <div class="banner-image-wrapper">
+    <img 
+      [src]="image" 
+      [alt]="titleBlack + ' ' + titleCyan"
+      class="banner-image"
+      loading="lazy" />
+  </div>
+</section>

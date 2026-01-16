@@ -1,0 +1,472 @@
+/* Contenedor principal del carrusel */
+.carrusel-container {
+  width: 100%;
+  max-width: 1500px;
+  margin: 60px auto;
+  padding: 0 20px;
+  font-family: 'Avenir Next LT Pro', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Encabezado del carrusel */
+.carrusel-header {
+  text-align: center;
+  padding: 0;
+}
+
+.carrusel-title {
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: 'Avenir Next LT Pro', sans-serif;
+  color: #000;
+  margin: 0 0 8px 0;
+  padding-bottom: 12px;
+  position: relative;
+  letter-spacing: 0.5px;
+  animation: slideDownFade 0.5s ease-out;
+}
+
+.carrusel-title::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #009AA2 0%, #15CD82 100%);
+  margin: 16px auto 0;
+  border-radius: 2px;
+}
+
+.carrusel-subtitle {
+  font-size: 0.95rem;
+  color: #666;
+  font-family: 'Avenir Next LT Pro', sans-serif;
+  margin: 0;
+  padding: 0;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Wrapper principal del carrusel */
+.carrusel-main {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  animation: fadeInUp 0.5s ease-out;
+  position: relative;
+}
+
+/* Nuevo wrapper para el contenido */
+.carrusel-content-wrapper {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+  box-shadow: 0 8px 32px rgba(0, 154, 162, 0.1);
+  border: 1px solid rgba(0, 154, 162, 0.08);
+}
+
+/* Contenedor del contenido */
+.carrusel-content {
+  width: 100%;
+  overflow: visible;
+  padding: 32px 32px 32px 32px;
+  margin-right: 80px;
+}
+
+/* Track del carrusel */
+.carrusel-track {
+  display: flex;
+  gap: 30px;
+  animation: fadeIn 0.4s ease-out;
+  transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+/* Tarjeta de producto */
+.producto-card {
+  flex: 0 0 calc(25% - 22.5px);
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #f0f0f0;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  animation: slideInUp 0.5s ease-out both;
+}
+
+/* Stagger effect para tarjetas */
+.producto-card:nth-child(1) { animation-delay: 0s; }
+.producto-card:nth-child(2) { animation-delay: 0.08s; }
+.producto-card:nth-child(3) { animation-delay: 0.16s; }
+.producto-card:nth-child(4) { animation-delay: 0.24s; }
+
+.producto-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 154, 162, 0.2);
+  border-color: #009AA2;
+  z-index: 10;
+}
+
+/* Imagen del producto */
+.producto-imagen {
+  width: 100%;
+  height: 240px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e8f8f6 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  border-radius: 8px 8px 0 0;
+}
+
+.producto-imagen::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.10);
+  transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.producto-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  z-index: 0;
+}
+
+.producto-card:hover .producto-imagen::after {
+  background: rgba(255, 255, 255, 0);
+}
+
+.producto-card:hover .producto-imagen img {
+  transform: scale(1.08);
+}
+
+.sin-imagen {
+  font-size: 3rem;
+  color: #ddd;
+}
+
+/* Información del producto */
+.producto-info {
+  flex: 1;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.producto-nombre {
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-family: 'Avenir Next LT Pro', sans-serif;
+  color: #1a1a1a;
+  margin: 0 0 2px 0;
+  line-height: 1.25;
+  height: 2.6rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  letter-spacing: 0.2px;
+}
+
+.producto-subcategoria {
+  font-size: 0.75rem;
+  font-family: 'Avenir Next LT Pro', sans-serif;
+  color: #009AA2;
+  background: rgba(0, 154, 162, 0.08);
+  padding: 3px 8px;
+  border-radius: 6px;
+  display: inline-block;
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  width: fit-content;
+}
+
+.producto-descripcion {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+/* Footer del producto */
+.producto-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #f5f5f5;
+}
+
+.producto-precio {
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #009AA2 0%, #15CD82 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.producto-stock {
+  font-size: 0.8rem;
+  color: #15CD82;
+  font-weight: 600;
+  background: linear-gradient(135deg, #f0fef8 0%, #e8fdf4 100%);
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.producto-stock.agotado {
+  color: #ff6b6b;
+  background: #fff5f5;
+}
+
+/* Botones de navegación */
+.carrusel-btn {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #e0e0e0;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  color: #009AA2;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.carrusel-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #009AA2 0%, #15CD82 100%);
+  color: white;
+  border-color: #009AA2;
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 154, 162, 0.3);
+}
+
+.carrusel-btn:active:not(:disabled) {
+  transform: scale(0.95);
+  box-shadow: 0 4px 16px rgba(0, 154, 162, 0.25);
+  transition: all 0.2s ease;
+}
+
+.carrusel-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transform: none;
+}
+
+/* Indicadores */
+.carrusel-indicadores {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.indicador {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid #e0e0e0;
+  background: white;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.indicador:hover:not(.activo) {
+  border-color: #009AA2;
+  color: #009AA2;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 16px rgba(0, 154, 162, 0.18);
+}
+
+.indicador.activo {
+  background: linear-gradient(135deg, #009AA2 0%, #15CD82 100%);
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 8px 20px rgba(0, 154, 162, 0.28);
+  transform: scale(1.05);
+}
+
+/* Animaciones mejoradas */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive mejorado */
+@media screen and (max-width: 1200px) {
+  .producto-card {
+    flex: 0 0 calc(33.333% - 20px);
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .producto-card {
+    flex: 0 0 calc(50% - 10px);
+  }
+  
+  .carrusel-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .carrusel-container {
+    margin: 30px auto;
+    padding: 0 15px;
+  }
+
+  .carrusel-title {
+    font-size: 1.6rem;
+  }
+
+  .producto-card {
+    flex: 0 0 calc(100% - 0px);
+  }
+
+  .producto-imagen {
+    height: 180px;
+  }
+
+  .carrusel-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+  }
+
+  .indicador {
+    width: 32px;
+    height: 32px;
+    font-size: 0.75rem;
+  }
+  
+  .carrusel-content-wrapper {
+    border-radius: 12px;
+  }
+  
+  .carrusel-content {
+    padding: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .carrusel-container {
+    margin: 20px auto;
+    padding: 0 12px;
+  }
+
+  .carrusel-title {
+    font-size: 1.4rem;
+  }
+
+  .carrusel-title::after {
+    width: 60px;
+  }
+
+  .carrusel-main {
+    gap: 12px;
+  }
+
+  .producto-imagen {
+    height: 160px;
+  }
+
+  .producto-card {
+    border-radius: 10px;
+  }
+
+  .producto-info {
+    padding: 14px;
+    gap: 8px;
+  }
+
+  .producto-nombre {
+    font-size: 1rem;
+  }
+
+  .carrusel-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .indicador {
+    width: 28px;
+    height: 28px;
+    font-size: 0.7rem;
+  }
+  
+  .carrusel-content {
+    padding: 16px;
+  }
+}
