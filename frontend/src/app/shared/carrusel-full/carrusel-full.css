@@ -21,8 +21,8 @@
   font-weight: bold;
   font-family: 'Avenir Next LT Pro', sans-serif;
   color: #000;
-  margin: 0 0 8px 0;
-  padding-bottom: 12px;
+  
+  
   position: relative;
   letter-spacing: 0.5px;
   animation: slideDownFade 0.5s ease-out;
@@ -370,7 +370,7 @@
 
 @media screen and (max-width: 992px) {
   .producto-card {
-    flex: 0 0 calc(50% - 10px);
+    flex: 0 0 calc(50% - 15px);
   }
   
   .carrusel-btn {
@@ -384,18 +384,76 @@
   .carrusel-container {
     margin: 30px auto;
     padding: 0 15px;
+    gap: 24px;
+  }
+
+  .carrusel-header {
+    padding: 0;
   }
 
   .carrusel-title {
     font-size: 1.6rem;
+    margin-bottom: 8px;
+  }
+
+  .carrusel-title::after {
+    margin: 12px auto 0;
+  }
+
+  .carrusel-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .carrusel-main {
+    gap: 16px;
+  }
+
+  .carrusel-content-wrapper {
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 154, 162, 0.08);
+  }
+
+  .carrusel-content {
+    padding: 18px;
+    margin-right: 0;
+    overflow-x: hidden;
+  }
+
+  .carrusel-track {
+    gap: 12px;
   }
 
   .producto-card {
     flex: 0 0 calc(100% - 0px);
+    border-radius: 10px;
   }
 
   .producto-imagen {
     height: 180px;
+  }
+
+  .producto-info {
+    padding: 16px;
+    gap: 8px;
+  }
+
+  .producto-nombre {
+    font-size: 1rem;
+    margin-bottom: 4px;
+  }
+
+  .producto-subcategoria {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+  }
+
+  .producto-precio {
+    font-size: 1.2rem;
+  }
+
+  .producto-stock {
+    font-size: 0.75rem;
+    padding: 3px 6px;
   }
 
   .carrusel-btn {
@@ -409,49 +467,83 @@
     height: 32px;
     font-size: 0.75rem;
   }
-  
-  .carrusel-content-wrapper {
-    border-radius: 12px;
-  }
-  
-  .carrusel-content {
-    padding: 20px;
-  }
 }
 
 @media screen and (max-width: 480px) {
   .carrusel-container {
     margin: 20px auto;
     padding: 0 12px;
+    gap: 20px;
   }
 
   .carrusel-title {
     font-size: 1.4rem;
+    margin-bottom: 6px;
   }
 
   .carrusel-title::after {
     width: 60px;
+    height: 2px;
+    margin: 10px auto 0;
+  }
+
+  .carrusel-subtitle {
+    font-size: 0.85rem;
+    margin-top: 8px;
   }
 
   .carrusel-main {
     gap: 12px;
   }
 
+  .carrusel-content-wrapper {
+    border-radius: 10px;
+  }
+
+  .carrusel-content {
+    padding: 14px;
+    margin-right: 0;
+  }
+
+  .carrusel-track {
+    gap: 8px;
+  }
+
+  .producto-card {
+    flex: 0 0 calc(100% - 0px);
+    border-radius: 10px;
+  }
+
   .producto-imagen {
     height: 160px;
   }
 
-  .producto-card {
-    border-radius: 10px;
-  }
-
   .producto-info {
-    padding: 14px;
-    gap: 8px;
+    padding: 12px;
+    gap: 6px;
   }
 
   .producto-nombre {
-    font-size: 1rem;
+    font-size: 0.95rem;
+    margin-bottom: 3px;
+  }
+
+  .producto-subcategoria {
+    font-size: 0.65rem;
+    padding: 2px 5px;
+  }
+
+  .producto-descripcion {
+    font-size: 0.8rem;
+  }
+
+  .producto-precio {
+    font-size: 1.1rem;
+  }
+
+  .producto-stock {
+    font-size: 0.7rem;
+    padding: 2px 4px;
   }
 
   .carrusel-btn {
@@ -464,9 +556,5 @@
     width: 28px;
     height: 28px;
     font-size: 0.7rem;
-  }
-  
-  .carrusel-content {
-    padding: 16px;
   }
 }

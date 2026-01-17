@@ -1,8 +1,12 @@
-<header class="head">
-  <!-- Botón hamburguesa a la izquierda -->
-  <button class="hamburger" (click)="toggleMenu()" aria-label="Menú">&#9776;</button>
+<header class="head" [class.scrolled]="scrolled">
+  <!-- Logo para mobile -->
+  <div class="logo-mobile">
+    <a routerLink="/">
+      <img src="assets/img/logo-mini.png" alt="Logo" />
+    </a>
+  </div>
 
-  <!-- EXTREMA IZQUIERDA: Ubicación -->
+  <!-- EXTREMA IZQUIERDA: Ubicación (solo desktop) -->
   <div class="navbar-left">
     <div class="location">
       <fa-icon [icon]="faMapMarkerAlt" class="location-icon"></fa-icon>
@@ -10,17 +14,17 @@
     </div>
   </div>
 
-  <!-- CENTRO: Menú + Logo -->
+  <!-- CENTRO: Menú + Logo (desktop) -->
   <div class="navbar-center">
     <div class="navbar-content" [class.abierto]="menuAbierto">
       <!-- Menú izquierdo -->
       <div class="nav-group izquierda" [class.shift]="logoHover">
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+        <a class="inicio-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
         <a routerLink="/productos" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Catálogo</a>
       </div>
 
-      <!-- Logo central -->
-      <div class="logo-dual"
+      <!-- Logo central (solo desktop) -->
+      <div class="logo-dual desktop-only"
            (mouseenter)="logoHover = true"
            (mouseleave)="logoHover = false"
            [class.expandido]="logoHover">
@@ -38,19 +42,26 @@
     </div>
   </div>
 
-  <!-- EXTREMA DERECHA: Buscador + Llave -->
+  <!-- EXTREMA DERECHA: Buscador + Llave (desktop) y hamburguesa (mobile) -->
   <div class="navbar-right">
-    <!-- Buscador -->
-    <div class="search-wrapper">
+    <!-- Buscador (solo desktop) -->
+    <div class="search-wrapper desktop-only">
       <input type="text" class="search-input" placeholder="¿Qué estás buscando?">
       <fa-icon [icon]="faMagnifyingGlass" class="search-icon"></fa-icon>
     </div>
 
-    <!-- Ícono llave a la derecha -->
-    <div class="login-wrapper">
+    <!-- Ícono llave a la derecha (solo desktop) -->
+    <div class="login-wrapper desktop-only">
       <a routerLink="/login" aria-label="Ingreso administrativo">
         <fa-icon [icon]="faKey" class="login-icon"></fa-icon>
       </a>
     </div>
+
+    <!-- Botón hamburguesa para mobile -->
+    <button class="hamburger" (click)="toggleMenu()" aria-label="Menú">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
   </div>
 </header>

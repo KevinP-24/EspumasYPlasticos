@@ -205,7 +205,7 @@ export class CarruselFull implements OnInit, OnDestroy, AfterViewInit {
     
     this.isAnimating = true;
     
-    // Verificar límites
+    // Retroceder exactamente itemsPerView items
     const newIndex = Math.max(0, this.currentIndex - this.itemsPerView);
     
     if (newIndex !== this.currentIndex) {
@@ -232,7 +232,7 @@ export class CarruselFull implements OnInit, OnDestroy, AfterViewInit {
     
     this.isAnimating = true;
     
-    // Verificar límites
+    // Avanzar exactamente itemsPerView items
     const maxIndex = this.productos.length - this.itemsPerView;
     const newIndex = Math.min(maxIndex, this.currentIndex + this.itemsPerView);
     

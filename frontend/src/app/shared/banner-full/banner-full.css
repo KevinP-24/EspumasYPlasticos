@@ -7,7 +7,7 @@
   padding: 60px 20px 60px 150px;
   gap: 0;
   max-width: 100%;
-  margin: 0;
+  margin-bottom: 20px;
   box-sizing: border-box;
   overflow: hidden;
   background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
@@ -20,6 +20,7 @@
   min-width: 300px;
   z-index: 10;
   animation: slideInLeft 0.6s ease-out;
+  margin-bottom: 80px;
 }
 
 .banner-title {
@@ -131,21 +132,24 @@
 @media screen and (max-width: 768px) {
   .banner {
     flex-direction: column;
-    padding: 40px 20px;
+    padding: 30px 16px;
     text-align: center;
-    gap: 30px;
+    gap: 20px;
   }
 
   .banner.image-left {
     flex-direction: column;
+    padding: 30px 16px;
   }
 
   .banner-content {
     min-width: auto;
+    margin-bottom: 20px;
   }
 
   .banner-title {
-    font-size: 2.2rem;
+    font-size: 2rem;
+    margin-bottom: 12px;
   }
 
   .banner-title span {
@@ -155,33 +159,52 @@
 
   .banner-description {
     max-width: 100%;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
   }
 
   .banner-image-wrapper {
     justify-content: center;
+    position: relative;
+    height: auto;
   }
 
   .banner-image {
-    max-height: 300px;
+    max-height: 280px;
+    margin-right: 0;
   }
 }
 
 @media screen and (max-width: 480px) {
   .banner {
-    padding: 30px 16px;
-    gap: 20px;
+    padding: 20px 12px;
+    gap: 16px;
+  }
+
+  .banner-content {
+    margin-bottom: 10px;
   }
 
   .banner-title {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .banner-title span {
+    margin-top: 4px;
   }
 
   .banner-description {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .banner-image-wrapper {
+    margin-top: 10px;
   }
 
   .banner-image {
-    max-height: 200px;
+    max-height: 180px;
   }
 }

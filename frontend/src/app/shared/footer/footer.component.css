@@ -2,7 +2,7 @@
 footer {
   background: linear-gradient(135deg, #009AA2 0%, #15CD82 100%);
   color: white;
-  padding: 50px 40px 30px;
+  padding: 70px 40px 50px;
   font-family: 'Avenir Next LT Pro', sans-serif;
   box-shadow: 0 -8px 24px rgba(0, 154, 162, 0.15);
 }
@@ -14,7 +14,7 @@ footer {
   width: 100%;
   display: grid;
   grid-template-columns: auto 1fr 1fr;
-  gap: 60px;
+  gap: 80px;
   align-items: start;
   justify-content: start;
 }
@@ -28,7 +28,7 @@ footer {
 }
 
 .footer-logo img {
-  height: 80px;
+  height: 100px;
   display: block;
   filter: brightness(1.15);
   transition: transform 0.3s ease;
@@ -42,23 +42,23 @@ footer {
 .footer-info {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 }
 
 .footer-info h3 {
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 700;
-  margin: 0 0 8px 0;
+  margin: 0 0 10px 0;
   color: white;
   letter-spacing: 0.3px;
   text-transform: uppercase;
 }
 
 .footer-info p {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   margin: 0;
   color: rgba(255, 255, 255, 0.9);
-  line-height: 1.6;
+  line-height: 1.7;
   transition: all 0.3s ease;
 }
 
@@ -80,17 +80,134 @@ footer {
 footer hr {
   border: none;
   border-top: 1px solid rgba(255, 255, 255, 0.2);
-  margin: 30px auto 20px;
+  margin: 40px auto 25px;
   width: 100%;
 }
 
 /* Línea inferior */
 .footer-bottom {
   text-align: center;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.8);
-  padding-top: 10px;
+  padding-top: 15px;
   letter-spacing: 0.3px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+  }
+
+  footer {
+    padding: 60px 35px 40px;
+  }
+
+  .footer-logo img {
+    height: 90px;
+  }
+
+  .footer-info h3 {
+    font-size: 1rem;
+  }
+
+  .footer-info p {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  footer {
+    padding: 60px 20px 45px;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 45px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-logo {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .footer-logo img {
+    height: 75px;
+  }
+
+  .footer-info {
+    align-items: center;
+    text-align: center;
+    gap: 18px;
+  }
+
+  .footer-info h3 {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .footer-info p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  footer hr {
+    margin: 45px auto 30px;
+  }
+
+  .footer-bottom {
+    font-size: 0.85rem;
+    padding-top: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    padding: 40px 14px 30px;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .footer-logo {
+    margin-bottom: 15px;
+  }
+
+  .footer-logo img {
+    height: 65px;
+  }
+
+  .footer-info {
+    gap: 15px;
+  }
+
+  .footer-info h3 {
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+  }
+
+  .footer-info p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .footer-info a {
+    font-size: 0.85rem;
+  }
+
+  footer hr {
+    margin: 35px auto 20px;
+  }
+
+  .footer-bottom {
+    font-size: 0.8rem;
+    padding-top: 10px;
+  }
 }
 
 /* === RESPONSIVE === */
@@ -103,19 +220,23 @@ footer hr {
 
 @media (max-width: 768px) {
   footer {
-    padding: 40px 25px 25px;
+    padding: 30px 16px 20px;
   }
 
   .footer-container {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 24px;
     align-items: center;
     text-align: center;
   }
 
   .footer-logo {
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+  }
+
+  .footer-logo img {
+    height: 60px;
   }
 
   .footer-info {
@@ -124,10 +245,59 @@ footer hr {
   }
 
   .footer-info h3 {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
   }
 
   .footer-info p {
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  footer hr {
+    margin: 20px auto 15px;
+  }
+
+  .footer-bottom {
+    font-size: 0.8rem;
+    padding-top: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    padding: 20px 12px 15px;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .footer-logo img {
+    height: 50px;
+  }
+
+  .footer-info h3 {
     font-size: 0.85rem;
+    margin-bottom: 5px;
+  }
+
+  .footer-info p {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .footer-info a {
+    font-size: 0.8rem;
+  }
+
+  footer hr {
+    margin: 15px auto 10px;
+  }
+
+  .footer-bottom {
+    font-size: 0.75rem;
+    padding-top: 5px;
   }
 }
