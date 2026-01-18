@@ -9,6 +9,7 @@ import { HeroComponent } from "../../components/header-index/header-index.compon
 import { HeaderEnlacesComponent } from "../../components/header-enlaces/header-enlaces.component";
 import { CarruselHome } from "../../components/carrusel-home/carrusel-home";
 import { BannerHome } from "../../components/banner-home/banner-home";
+import { CategoriasHome } from "../../components/categorias-home/categorias-home";
 
 @Component({
   selector: 'app-home',
@@ -23,7 +24,8 @@ import { BannerHome } from "../../components/banner-home/banner-home";
     HeaderEnlacesComponent,
     HeroComponent,
     CarruselHome,
-    BannerHome
+    BannerHome,
+    CategoriasHome
 ],
   templateUrl: './home.html',
   styleUrl: './home.css'

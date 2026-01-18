@@ -1,0 +1,58 @@
+<section class="categorias-container">
+  <div class="categorias-header">
+    <h2 class="categorias-title">Nuestras Categorías</h2>
+    <p class="categorias-subtitle">Explora todos nuestros productos por categoría</p>
+  </div>
+
+  <div class="categorias-main">
+    <!-- Botón anterior -->
+    <button
+      class="categorias-btn categorias-btn-prev"
+      (click)="anterior()"
+      [disabled]="isPrevDisabled || isAnimating"
+      aria-label="Categoría anterior">
+      <fa-icon [icon]="faChevronLeft"></fa-icon>
+    </button>
+
+    <!-- Carrusel de categorías -->
+    <div class="categorias-wrapper"
+         #categoriasContent
+         (wheel)="onWheel($event)"
+         (mousedown)="startDrag($event)"
+         (mousemove)="onDrag($event)"
+         (mouseup)="endDrag($event)"
+         (mouseleave)="endDrag($event)"
+         (touchstart)="startDrag($event)"
+         (touchmove)="onDrag($event)"
+         (touchend)="endDrag($event)">
+      <div
+        class="categorias-track"
+        [style.transform]="getTrackTransform()"
+        [class.animating]="isAnimating"
+        #categoriasTrack>
+        <div
+          class="categoria-card"
+          *ngFor="let categoria of categorias"
+          (click)="selectCategoria(categoria)">
+          <div class="categoria-imagen">
+            <img
+              [src]="categoria.imagen"
+              [alt]="categoria.nombre"
+              loading="lazy" />
+            <div class="categoria-overlay"></div>
+          </div>
+          <h3 class="categoria-nombre">{{ categoria.nombre }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón siguiente -->
+    <button
+      class="categorias-btn categorias-btn-next"
+      (click)="siguiente()"
+      [disabled]="isNextDisabled || isAnimating"
+      aria-label="Siguiente categoría">
+      <fa-icon [icon]="faChevronRight"></fa-icon>
+    </button>
+  </div>
+</section>

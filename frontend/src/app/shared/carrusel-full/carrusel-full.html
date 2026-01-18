@@ -1,34 +1,46 @@
 <section class="carrusel-container">
   <!-- Encabezado -->
   <div class="carrusel-header" *ngIf="productos.length > 0">
-    <h2 class="carrusel-title">{{ titulo }}</h2>
-    <p class="carrusel-subtitle" *ngIf="subtitulo">{{ subtitulo }}</p>
+    <div class="header-content">
+      <h2 class="carrusel-title">{{ titulo }}</h2>
+      <p class="carrusel-subtitle" *ngIf="subtitulo">{{ subtitulo }}</p>
+    </div>
   </div>
 
   <!-- Estado de carga -->
   <div class="carrusel-loading" *ngIf="isLoading">
-    <div class="spinner"></div>
-    <p>Cargando productos...</p>
+    <div class="spinner-container">
+      <div class="spinner"></div>
+      <p>Cargando productos...</p>
+    </div>
   </div>
 
   <!-- Estado de error -->
   <div class="carrusel-error" *ngIf="error && !isLoading">
-    <div class="error-icon">⚠️</div>
-    <h3>Error</h3>
-    <p>{{ error }}</p>
+    <div class="error-content">
+      <div class="error-icon">⚠️</div>
+      <h3>Error al cargar</h3>
+      <p>{{ error }}</p>
+      <button class="retry-btn" (click)="reintentar()">Reintentar</button>
+    </div>
   </div>
 
   <!-- Carrusel principal -->
-  <div class="carrusel-main" *ngIf="productos.length > 0 && !isLoading && !error">
+  <div 
+    class="carrusel-main" 
+    *ngIf="productos.length > 0 && !isLoading && !error"
+    #carouselContainer
+    (wheel)="onWheel($event)"
+    (mousedown)="startDrag($event)"
+    (touchstart)="startDrag($event)"
+    (mouseup)="endDrag($event)"
+    (touchend)="endDrag($event)"
+    (mouseleave)="endDrag($event)"
+    (mousemove)="onDrag($event)"
+    (touchmove)="onDrag($event)">
+    
     <!-- Botón anterior -->
-    <button 
-      class="carrusel-btn carrusel-btn-prev"
-      (click)="anterior()"
-      [disabled]="isPrevDisabled || isAnimating"
-      [attr.aria-label]="'Productos anteriores'"
-      [title]="isPrevDisabled ? 'No hay productos anteriores' : 'Ver anteriores'">
-      <fa-icon [icon]="faChevronLeft"></fa-icon>
-    </button>
+   
 
     <!-- Contenedor del carrusel -->
     <div class="carrusel-content-wrapper">
@@ -36,17 +48,22 @@
         <div 
           class="carrusel-track" 
           #carouselTrack
-          [style.transform]="getTrackTransform()"
-          [class.animating]="isAnimating">
+          [style.transition]="'transform ' + transitionDuration + 'ms cubic-bezier(0.25, 0.46, 0.45, 0.94)'"
+          [class.dragging]="isDragging">
           
           <!-- Tarjeta de producto -->
           <div 
             class="producto-card"
             *ngFor="let producto of productos; let i = index"
+            [attr.data-index]="i"
             [attr.data-product-id]="producto.id"
             role="article"
-            [style.transform]="getCardTransform(i)"
-            [style.opacity]="getCardOpacity(i)">
+            (click)="selectProduct(producto)">
+            
+            <!-- Badge destacado -->
+            <div class="producto-badge" *ngIf="i < 2 && producto.cantidad > 0">
+              Destacado
+            </div>
             
             <!-- Imagen -->
             <div class="producto-imagen">
@@ -56,7 +73,19 @@
                 [alt]="producto.nombre"
                 loading="lazy"
                 (error)="handleImageError($event)" />
-              <div *ngIf="!getProductoImagen(producto)" class="sin-imagen">📦</div>
+              <div *ngIf="!getProductoImagen(producto)" class="sin-imagen">
+                <fa-icon [icon]="faBoxOpen"></fa-icon>
+              </div>
+              
+              <!-- Acciones rápidas -->
+              <div class="producto-actions">
+                <button class="action-btn" (click)="addToCart(producto, $event)">
+                  <fa-icon [icon]="faCartPlus"></fa-icon>
+                </button>
+                <button class="action-btn" (click)="viewDetails(producto, $event)">
+                  <fa-icon [icon]="faEye"></fa-icon>
+                </button>
+              </div>
             </div>
 
             <!-- Info del producto -->
@@ -69,8 +98,17 @@
               
               <div class="producto-footer">
                 <div class="producto-precio">{{ formatearPrecio(producto.precio) }}</div>
-                <div class="producto-stock">
-                  {{ producto.cantidad > 0 ? '✓ Envio Gratis' : 'Agotado' }}
+                <div class="producto-meta">
+                  <div class="producto-stock" [class.agotado]="producto.cantidad === 0">
+                    {{ producto.cantidad > 0 ? '✓ Envío Gratis' : 'Agotado' }}
+                  </div>
+                  <div class="producto-rating" *ngIf="producto.rating">
+                    <fa-icon 
+                      [icon]="faStar" 
+                      *ngFor="let star of getStars(producto.rating)"
+                      [class.filled]="star"></fa-icon>
+                    <span>{{ producto.rating.toFixed(1) }}</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -80,21 +118,56 @@
     </div>
 
     <!-- Botón siguiente -->
-    <button 
-      class="carrusel-btn carrusel-btn-next"
-      (click)="siguiente()"
-      [disabled]="isNextDisabled || isAnimating"
-      [attr.aria-label]="'Siguientes productos'"
-      [title]="isNextDisabled ? 'No hay más productos' : 'Ver siguientes'">
-      <fa-icon [icon]="faChevronRight"></fa-icon>
-    </button>
+    
   </div>
 
-  
+  <!-- Barra de estado mejorada -->
+  <div class="carrusel-status-bar" *ngIf="productos.length > itemsPerView">
+    <div class="status-info">
+      <span class="product-count">{{ currentIndex + 1 }}-{{ currentIndex + itemsPerView > productos.length ? productos.length : currentIndex + itemsPerView }} de {{ productos.length }} productos</span>
+    </div>
+    
+    <!-- Indicadores de progreso -->
+    <div class="progress-container">
+      <div class="progress-bar" [style.width]="getProgressBarWidth()"></div>
+      <div class="progress-dots">
+        <div 
+          *ngFor="let dot of getProgressDots()"
+          class="progress-dot"
+          [class.active]="dot.active"
+          (click)="goToDotSlide(dot.index)">
+        </div>
+      </div>
+    </div>
+    
+    <!-- Controles de navegación -->
+    <div class="status-controls">
+      <button 
+        class="status-btn"
+        (click)="anterior()"
+        [disabled]="isPrevDisabled || isAnimating"
+        title="Producto anterior">
+        <fa-icon [icon]="faChevronLeft"></fa-icon>
+      </button>
+      <button 
+        class="status-btn"
+        (click)="siguiente()"
+        [disabled]="isNextDisabled || isAnimating"
+        title="Siguiente producto">
+        <fa-icon [icon]="faChevronRight"></fa-icon>
+      </button>
+    </div>
+  </div>
+
   <!-- Sin productos -->
   <div class="carrusel-empty" *ngIf="productos.length === 0 && !isLoading && !error">
-    <div class="empty-icon">📦</div>
-    <h3>No hay productos disponibles</h3>
-    <p>Pronto agregaremos más productos.</p>
+    <div class="empty-content">
+      <div class="empty-icon">
+        <fa-icon [icon]="faSearch"></fa-icon>
+      </div>
+      <h3>No hay productos disponibles</h3>
+      <p>Pronto agregaremos más productos a esta categoría.</p>
+      <button class="explore-btn" (click)="exploreMore()">Explorar más</button>
+    </div>
   </div>
 </section>
