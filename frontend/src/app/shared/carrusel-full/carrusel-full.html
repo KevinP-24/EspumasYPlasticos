@@ -40,7 +40,14 @@
     (touchmove)="onDrag($event)">
     
     <!-- Botón anterior -->
-   
+    <button 
+      class="carrusel-nav-btn carrusel-nav-prev"
+      (click)="anterior()"
+      [disabled]="isPrevDisabled || isAnimating"
+      title="Producto anterior"
+      aria-label="Anterior">
+      <fa-icon [icon]="faChevronLeft"></fa-icon>
+    </button>
 
     <!-- Contenedor del carrusel -->
     <div class="carrusel-content-wrapper">
@@ -118,15 +125,18 @@
     </div>
 
     <!-- Botón siguiente -->
-    
+    <button 
+      class="carrusel-nav-btn carrusel-nav-next"
+      (click)="siguiente()"
+      [disabled]="isNextDisabled || isAnimating"
+      title="Siguiente producto"
+      aria-label="Siguiente">
+      <fa-icon [icon]="faChevronRight"></fa-icon>
+    </button>
   </div>
 
-  <!-- Barra de estado mejorada -->
+  <!-- Barra de progreso simplificada -->
   <div class="carrusel-status-bar" *ngIf="productos.length > itemsPerView">
-    <div class="status-info">
-      <span class="product-count">{{ currentIndex + 1 }}-{{ currentIndex + itemsPerView > productos.length ? productos.length : currentIndex + itemsPerView }} de {{ productos.length }} productos</span>
-    </div>
-    
     <!-- Indicadores de progreso -->
     <div class="progress-container">
       <div class="progress-bar" [style.width]="getProgressBarWidth()"></div>
@@ -138,24 +148,6 @@
           (click)="goToDotSlide(dot.index)">
         </div>
       </div>
-    </div>
-    
-    <!-- Controles de navegación -->
-    <div class="status-controls">
-      <button 
-        class="status-btn"
-        (click)="anterior()"
-        [disabled]="isPrevDisabled || isAnimating"
-        title="Producto anterior">
-        <fa-icon [icon]="faChevronLeft"></fa-icon>
-      </button>
-      <button 
-        class="status-btn"
-        (click)="siguiente()"
-        [disabled]="isNextDisabled || isAnimating"
-        title="Siguiente producto">
-        <fa-icon [icon]="faChevronRight"></fa-icon>
-      </button>
     </div>
   </div>
 

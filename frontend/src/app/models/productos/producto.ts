@@ -1,0 +1,7 @@
+export interface Producto {
+  id: number;
+  imagen: string;
+  descripcion: string;
+  link: string;
+  altura: 'alta' | 'baja'; // Para controlar la altura de la imagen
+}

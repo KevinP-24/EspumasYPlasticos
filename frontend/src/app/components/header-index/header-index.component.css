@@ -18,20 +18,28 @@
 
 .hero-content h1 {
   font-family: 'Avenir Next LT Pro', sans-serif;
-  font-size: 3rem;
-  font-weight: bold;
-  color: #000;
-  margin-bottom: 10px;
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
 }
 
 .hero-content h1 span {
-  color: #009AA2;
+  background: linear-gradient(135deg, #009AA2 0%, #15CD82 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .hero-content .subtitle {
-  font-size: 1rem;
-  color: #777;
-  margin-bottom: 20px;
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 28px;
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0.3px;
 }
 
 .hero-content h2 {

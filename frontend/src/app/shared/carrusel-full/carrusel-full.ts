@@ -475,9 +475,11 @@ export class CarruselFull implements OnInit, OnDestroy, AfterViewInit {
     try {
       const num = typeof precio === 'string' ? parseFloat(precio) : precio;
       if (isNaN(num)) {
-        return '$0.00';
+        return '$0';
       }
-      return '$' + num.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      // Formato colombiano: pesos con punto separador de miles
+      const formatted = num.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      return '$' + formatted;
     } catch (error) {
       console.error('Error formateando precio:', error);
       return '$0';

@@ -10,6 +10,7 @@ import { HeaderEnlacesComponent } from "../../components/header-enlaces/header-e
 import { CarruselHome } from "../../components/carrusel-home/carrusel-home";
 import { BannerHome } from "../../components/banner-home/banner-home";
 import { CategoriasHome } from "../../components/categorias-home/categorias-home";
+import { UtilGridProductos } from "../../components/grid-productos/util-grid-productos/util-grid-productos";
 
 @Component({
   selector: 'app-home',
@@ -25,7 +26,8 @@ import { CategoriasHome } from "../../components/categorias-home/categorias-home
     HeroComponent,
     CarruselHome,
     BannerHome,
-    CategoriasHome
+    CategoriasHome,
+    UtilGridProductos
 ],
   templateUrl: './home.html',
   styleUrl: './home.css'

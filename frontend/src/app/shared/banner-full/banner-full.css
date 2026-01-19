@@ -68,14 +68,11 @@
   height: auto;
   object-fit: contain;
   max-height: 500px;
-  filter: drop-shadow(0 20px 40px rgba(0, 154, 162, 0.15));
-  transition: all 0.4s ease;
   margin-right: -20px;
 }
 
 .banner-image-wrapper:hover .banner-image {
-  filter: drop-shadow(0 30px 60px rgba(0, 154, 162, 0.25));
-  transform: translateY(-8px);
+  
 }
 
 /* Variante: Imagen a la izquierda */
