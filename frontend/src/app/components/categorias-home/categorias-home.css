@@ -59,7 +59,7 @@
   background: white;
   box-shadow: 0 2px 10px rgba(0, 154, 162, 0.06);
   border: 1px solid rgba(0, 154, 162, 0.05);
-  padding: 14px;
+  padding: 8px;
   cursor: grab;
 }
 
@@ -70,7 +70,7 @@
 /* Track del carrusel */
 .categorias-track {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
 }
@@ -95,7 +95,7 @@
 
 /* Imagen de categoría */
 .categoria-imagen {
-  width: 100%;
+  width: 90%;
   aspect-ratio: 1;
   border-radius: 8px;
   overflow: hidden;
@@ -117,7 +117,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 154, 162, 0.15);
+  
   transition: all 0.4s ease;
 }
 
@@ -182,11 +182,11 @@
 /* Responsive */
 @media screen and (max-width: 1600px) {
   .categorias-wrapper {
-    padding: 12px;
+    padding: 8px;
   }
 
   .categorias-track {
-    gap: 9px;
+    gap: 10px;
   }
 
   .categoria-card {
@@ -206,6 +206,10 @@
 
   .categorias-subtitle {
     font-size: 0.82rem;
+  }
+
+  .categorias-track {
+    gap: 10px;
   }
 
   .categoria-nombre {
@@ -235,12 +239,12 @@
   }
 
   .categorias-wrapper {
-    padding: 12px;
+    padding: 8px;
     border-radius: 9px;
   }
 
   .categorias-track {
-    gap: 8px;
+    gap: 10px;
   }
 
   .categoria-imagen {
@@ -276,11 +280,11 @@
   }
 
   .categorias-wrapper {
-    padding: 10px;
+    padding: 8px;
   }
 
   .categorias-track {
-    gap: 7px;
+    gap: 8px;
   }
 
   .categoria-imagen {
@@ -300,76 +304,77 @@
 @media screen and (max-width: 768px) {
   .categorias-container {
     margin: 24px 0;
-    padding: 0 14px;
-    gap: 14px;
+    padding: 0 10px;
+    gap: 16px;
   }
 
   .categorias-header {
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
 
   .categorias-title {
-    font-size: 1.45rem;
-    margin-bottom: 8px;
+    font-size: 1.7rem;
+    margin-bottom: 10px;
   }
 
   .categorias-title::after {
     margin: 12px auto 0;
-    width: 65px;
+    width: 70px;
   }
 
   .categorias-subtitle {
-    font-size: 0.82rem;
+    font-size: 0.88rem;
     line-height: 1.5;
   }
 
   .categorias-main {
-    gap: 10px;
+    gap: 6px;
   }
 
   .categorias-wrapper {
-    padding: 12px;
-    border-radius: 10px;
+    padding: 8px;
+    border-radius: 9px;
   }
 
   .categorias-track {
-    gap: 10px;
+    gap: 6px;
   }
 
   .categoria-card {
-    gap: 8px;
+    flex: 0 0 calc(25% - 6px);
+    gap: 6px;
   }
 
   .categoria-imagen {
-    border-radius: 8px;
-    aspect-ratio: 1 / 1.1;
+    border-radius: 7px;
+    aspect-ratio: 1;
   }
 
   .categoria-nombre {
-    font-size: 0.8rem;
-    font-weight: 700;
+    font-size: 0.65rem;
+    font-weight: 600;
   }
 
   .categorias-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 0.95rem;
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
   }
 }
 
 @media screen and (max-width: 480px) {
   .categorias-container {
     margin: 22px 0;
-    padding: 0 12px;
-    gap: 12px;
+    padding: 0 8px;
+    gap: 14px;
   }
 
   .categorias-header {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
   }
 
   .categorias-title {
-    font-size: 1.3rem;
+    font-size: 1.45rem;
     margin-bottom: 8px;
     font-weight: 700;
   }
@@ -381,91 +386,91 @@
   }
 
   .categorias-subtitle {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     line-height: 1.4;
   }
 
   .categorias-main {
-    gap: 8px;
+    gap: 5px;
   }
 
   .categorias-wrapper {
-    padding: 12px;
-    border-radius: 10px;
+    padding: 8px;
+    border-radius: 8px;
   }
 
   .categorias-track {
-    gap: 9px;
+    gap: 6px;
   }
 
   .categoria-card {
-    flex: 0 0 calc(50% - 4.5px);
-    gap: 8px;
+    flex: 0 0 calc(25% - 5.25px);
+    gap: 5px;
   }
 
   .categoria-imagen {
-    border-radius: 8px;
-    aspect-ratio: 1 / 1.1;
+    border-radius: 6px;
+    aspect-ratio: 1;
   }
 
   .categoria-nombre {
-    font-size: 0.78rem;
-    font-weight: 700;
-    margin-top: 2px;
+    font-size: 0.60rem;
+    font-weight: 600;
+    margin-top: 1px;
   }
 
   .categorias-btn {
-    width: 38px;
-    height: 38px;
-    font-size: 0.9rem;
+    width: 34px;
+    height: 34px;
+    font-size: 0.85rem;
   }
 }
 
 @media screen and (max-width: 360px) {
   .categorias-container {
     margin: 20px 0;
-    padding: 0 10px;
-    gap: 10px;
+    padding: 0 6px;
+    gap: 12px;
   }
 
   .categorias-title {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     margin-bottom: 6px;
   }
 
   .categorias-title::after {
-    width: 50px;
+    width: 52px;
     margin: 8px auto 0;
   }
 
   .categorias-subtitle {
-    font-size: 0.75rem;
+    font-size: 0.78rem;
   }
 
   .categorias-main {
-    gap: 6px;
+    gap: 4px;
   }
 
   .categorias-wrapper {
-    padding: 10px;
+    padding: 7px;
   }
 
   .categorias-track {
-    gap: 8px;
+    gap: 5px;
   }
 
   .categoria-card {
-    flex: 0 0 calc(50% - 4px);
-    gap: 6px;
+    flex: 0 0 calc(25% - 4.5px);
+    gap: 4px;
   }
 
   .categoria-nombre {
-    font-size: 0.7rem;
+    font-size: 0.55rem;
   }
 
   .categorias-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 0.85rem;
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
   }
 }

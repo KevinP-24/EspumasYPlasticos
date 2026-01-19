@@ -1,13 +1,13 @@
 <header class="head" [class.scrolled]="scrolled">
   <!-- Logo para mobile -->
   <div class="logo-mobile">
-    <a routerLink="/">
+    <a routerLink="/" (click)="onLogoClick()">
       <img src="assets/img/logo-mini.png" alt="Logo" />
     </a>
   </div>
 
   <!-- EXTREMA IZQUIERDA: Ubicación (solo desktop) -->
-  <div class="navbar-left">
+  <div class="navbar-left desktop-only">
     <div class="location">
       <fa-icon [icon]="faMapMarkerAlt" class="location-icon"></fa-icon>
       <span class="location-text">Armenia</span>
@@ -15,12 +15,14 @@
   </div>
 
   <!-- CENTRO: Menú + Logo (desktop) -->
-  <div class="navbar-center">
+  <div class="navbar-center" [class.menuAbierto]="menuAbierto">
     <div class="navbar-content" [class.abierto]="menuAbierto">
       <!-- Menú izquierdo -->
       <div class="nav-group izquierda" [class.shift]="logoHover">
-        <a class="inicio-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
-        <a routerLink="/productos" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Catálogo</a>
+        <a class="inicio-link" routerLink="/" routerLinkActive="active" 
+           [routerLinkActiveOptions]="{ exact: true }" (click)="navigateAndClose()">Inicio</a>
+        <a routerLink="/productos" routerLinkActive="active" 
+           [routerLinkActiveOptions]="{ exact: true }" (click)="navigateAndClose()">Catálogo</a>
       </div>
 
       <!-- Logo central (solo desktop) -->
@@ -28,7 +30,7 @@
            (mouseenter)="logoHover = true"
            (mouseleave)="logoHover = false"
            [class.expandido]="logoHover">
-        <a routerLink="/">
+        <a routerLink="/" (click)="navigateAndClose()">
           <img src="assets/img/logo-mini.png" alt="Logo Mini" class="logo-mini" />
           <img src="assets/img/logo-grande.png" alt="Logo Grande" class="logo-grande" />
         </a>
@@ -36,32 +38,44 @@
 
       <!-- Menú derecho -->
       <div class="nav-group derecha" [class.shift]="logoHover">
-        <a routerLink="/nosotros" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Quiénes Somos</a>
-        <a routerLink="/contacto" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Contacto</a>
+        <a routerLink="/nosotros" routerLinkActive="active" 
+           [routerLinkActiveOptions]="{ exact: true }" (click)="navigateAndClose()">Quiénes Somos</a>
+        <a routerLink="/contacto" routerLinkActive="active" 
+           [routerLinkActiveOptions]="{ exact: true }" (click)="navigateAndClose()">Contacto</a>
       </div>
     </div>
   </div>
 
   <!-- EXTREMA DERECHA: Buscador + Llave (desktop) y hamburguesa (mobile) -->
   <div class="navbar-right">
-    <!-- Buscador (solo desktop) -->
-    <div class="search-wrapper desktop-only">
-      <input type="text" class="search-input" placeholder="¿Qué estás buscando?">
-      <fa-icon [icon]="faMagnifyingGlass" class="search-icon"></fa-icon>
-    </div>
+    <!-- Buscador - Ahora expandible en mobile -->
+    <form (submit)="onSearchSubmit($event)" class="search-wrapper" 
+          [class.expandido]="searchExpanded" (click)="toggleSearch()">
+      <input #searchInput type="text" class="search-input" 
+             placeholder="¿Qué estás buscando?"
+             [value]="searchQuery"
+             (input)="onSearchInput($event)"
+             (click)="$event.stopPropagation()">
+      <fa-icon [icon]="faMagnifyingGlass" class="search-icon" 
+               (click)="preventEvent($event)"></fa-icon>
+    </form>
 
-    <!-- Ícono llave a la derecha (solo desktop) -->
-    <div class="login-wrapper desktop-only">
-      <a routerLink="/login" aria-label="Ingreso administrativo">
+    <!-- Ícono llave a la derecha -->
+    <div class="login-wrapper">
+      <a routerLink="/login" aria-label="Ingreso administrativo" (click)="navigateAndClose()">
         <fa-icon [icon]="faKey" class="login-icon"></fa-icon>
       </a>
     </div>
 
     <!-- Botón hamburguesa para mobile -->
-    <button class="hamburger" (click)="toggleMenu()" aria-label="Menú">
+    <button class="hamburger" (click)="toggleMenu()" aria-label="Menú" 
+            [class.menuAbierto]="menuAbierto">
       <span class="hamburger-line"></span>
       <span class="hamburger-line"></span>
       <span class="hamburger-line"></span>
     </button>
   </div>
+
+  <!-- Overlay para cerrar menú -->
+  <div class="menu-overlay" [class.active]="menuAbierto" (click)="closeMenu()"></div>
 </header>

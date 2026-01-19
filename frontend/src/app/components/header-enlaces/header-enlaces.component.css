@@ -3,6 +3,7 @@
   width: 100vw;
   height: 100vh;
   align-items: stretch;
+  margin-top: 60px;
 }
 .box {
   position: relative;
@@ -111,6 +112,7 @@
     flex-direction: column;
     width: 100%;
     height: auto;
+    margin-top: 50px;
   }
 
   .box {
