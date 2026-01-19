@@ -22,6 +22,15 @@ export class SubcategoriasAdminComponent implements OnInit {
   editando = false;
   subcategoriaActualId?: number;
 
+  // 📄 Paginación
+  currentPage = 1;
+  pageSize = 5;
+  totalSubcategorias = 0;
+  paginatedSubcategorias: SubcategoriaDTO[] = [];
+
+  // Exposer Math para templates
+  Math = Math;
+
   constructor(
     private fb: FormBuilder,
     private subcategoriaService: SubcategoriaService,
@@ -53,9 +62,43 @@ export class SubcategoriasAdminComponent implements OnInit {
 
   cargarSubcategorias(): void {
     this.subcategoriaService.obtenerSubcategorias().subscribe({
-      next: res => this.subcategorias = res,
+      next: res => {
+        this.subcategorias = res;
+        this.totalSubcategorias = res.length;
+        this.currentPage = 1;
+        this.actualizarPaginacion();
+      },
       error: err => this.alert.mostrarError('Error al cargar subcategorías.')
     });
+  }
+
+  actualizarPaginacion(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.paginatedSubcategorias = this.subcategorias.slice(startIndex, endIndex);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.totalSubcategorias / this.pageSize);
+  }
+
+  cambiarPagina(pagina: number): void {
+    if (pagina >= 1 && pagina <= this.totalPages) {
+      this.currentPage = pagina;
+      this.actualizarPaginacion();
+    }
+  }
+
+  irAPaginaAnterior(): void {
+    if (this.currentPage > 1) {
+      this.cambiarPagina(this.currentPage - 1);
+    }
+  }
+
+  irAPaginaSiguiente(): void {
+    if (this.currentPage < this.totalPages) {
+      this.cambiarPagina(this.currentPage + 1);
+    }
   }
 
   guardarSubcategoria(): void {

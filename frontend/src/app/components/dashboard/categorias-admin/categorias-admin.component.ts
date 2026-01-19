@@ -21,6 +21,15 @@ export class CategoriasAdminComponent implements OnInit {
   editando = false;
   categoriaActualId?: number;
 
+  // 📄 Paginación
+  currentPage = 1;
+  pageSize = 5;
+  totalCategorias = 0;
+  paginatedCategorias: CategoriaDTO[] = [];
+
+  // Exposer Math para templates
+  Math = Math;
+
   constructor(
     private fb: FormBuilder,
     private categoriaService: CategoriaService,
@@ -42,9 +51,43 @@ export class CategoriasAdminComponent implements OnInit {
 
   cargarCategorias(): void {
     this.categoriaService.obtenerCategorias().subscribe({
-      next: res => this.categorias = res,
+      next: res => {
+        this.categorias = res;
+        this.totalCategorias = res.length;
+        this.currentPage = 1;
+        this.actualizarPaginacion();
+      },
       error: err => this.alert.mostrarError('Error al cargar categorías.')
     });
+  }
+
+  actualizarPaginacion(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.paginatedCategorias = this.categorias.slice(startIndex, endIndex);
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.totalCategorias / this.pageSize);
+  }
+
+  cambiarPagina(pagina: number): void {
+    if (pagina >= 1 && pagina <= this.totalPages) {
+      this.currentPage = pagina;
+      this.actualizarPaginacion();
+    }
+  }
+
+  irAPaginaAnterior(): void {
+    if (this.currentPage > 1) {
+      this.cambiarPagina(this.currentPage - 1);
+    }
+  }
+
+  irAPaginaSiguiente(): void {
+    if (this.currentPage < this.totalPages) {
+      this.cambiarPagina(this.currentPage + 1);
+    }
   }
 
   onFileChange(event: Event): void {

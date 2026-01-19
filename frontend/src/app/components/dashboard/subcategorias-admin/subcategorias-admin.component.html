@@ -61,7 +61,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let sub of subcategorias" (click)="seleccionar(sub)">
+        <tr *ngFor="let sub of paginatedSubcategorias" (click)="seleccionar(sub)">
           <td class="cell-nombre">{{ sub.nombre }}</td>
           <td>
             <span class="cell-subcategoria">{{ obtenerNombreCategoria(sub.categoria_id) }}</span>
@@ -77,5 +77,40 @@
         </tr>
       </tbody>
     </table>
+
+    <!-- 📄 Paginación -->
+    <div class="pagination-container">
+      <div class="pagination-info">
+        Mostrando {{ (currentPage - 1) * pageSize + 1 }} - {{ Math.min(currentPage * pageSize, totalSubcategorias) }} de {{ totalSubcategorias }} subcategorías
+      </div>
+
+      <div class="pagination-controls">
+        <button 
+          (click)="irAPaginaAnterior()" 
+          [disabled]="currentPage === 1"
+          class="btn-pagination btn-prev"
+          title="Página anterior">
+          ← Anterior
+        </button>
+
+        <div class="page-numbers">
+          <button 
+            *ngFor="let page of [].constructor(totalPages); let i = index"
+            (click)="cambiarPagina(i + 1)"
+            [class.active]="currentPage === i + 1"
+            class="btn-page-number">
+            {{ i + 1 }}
+          </button>
+        </div>
+
+        <button 
+          (click)="irAPaginaSiguiente()" 
+          [disabled]="currentPage === totalPages"
+          class="btn-pagination btn-next"
+          title="Página siguiente">
+          Siguiente →
+        </button>
+      </div>
+    </div>
   </div>
 </div>

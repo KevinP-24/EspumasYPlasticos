@@ -63,7 +63,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let cat of categorias" (click)="seleccionar(cat)">
+        <tr *ngFor="let cat of paginatedCategorias" (click)="seleccionar(cat)">
           <td class="cell-nombre">{{ cat.nombre }}</td>
           <td>
             <img 
@@ -83,5 +83,40 @@
         </tr>
       </tbody>
     </table>
+
+    <!-- 📄 Paginación -->
+    <div class="pagination-container">
+      <div class="pagination-info">
+        Mostrando {{ (currentPage - 1) * pageSize + 1 }} - {{ Math.min(currentPage * pageSize, totalCategorias) }} de {{ totalCategorias }} categorías
+      </div>
+
+      <div class="pagination-controls">
+        <button 
+          (click)="irAPaginaAnterior()" 
+          [disabled]="currentPage === 1"
+          class="btn-pagination btn-prev"
+          title="Página anterior">
+          ← Anterior
+        </button>
+
+        <div class="page-numbers">
+          <button 
+            *ngFor="let page of [].constructor(totalPages); let i = index"
+            (click)="cambiarPagina(i + 1)"
+            [class.active]="currentPage === i + 1"
+            class="btn-page-number">
+            {{ i + 1 }}
+          </button>
+        </div>
+
+        <button 
+          (click)="irAPaginaSiguiente()" 
+          [disabled]="currentPage === totalPages"
+          class="btn-pagination btn-next"
+          title="Página siguiente">
+          Siguiente →
+        </button>
+      </div>
+    </div>
   </div>
 </div>
